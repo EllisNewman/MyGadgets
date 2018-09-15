@@ -89,19 +89,23 @@ namespace testJsonAPI
             string[] strings;
             strings = input.Split(',');
 
-            Dictionary<string, string> dic = new Dictionary<string, string>();
-
             for (int i = 0; i < strings.Length; i++)
             {
-                string s = strings[i];
-                string r = System.Text.RegularExpressions.Regex.Replace(s, "[\r\n\t]", "");
-                r = r.Replace(" ", "");
+                string str = strings[i];
+                str = System.Text.RegularExpressions.Regex.Replace(str, "[\r\n\t]", "");
+                str = str.Replace(" ", "");
 
-                string key = r.Split(':')[0];
+                string[] strs = str.Split(':');
+                string key = strs[0];
+
                 if (key.Contains("\""))
                     key = key.Split('"')[1];
 
-                string value = r.Split(':')[1];
+
+                string value = str;
+                
+                if(strs.Length > 1)
+                    value = strs[1];
 
                 if (key == "name" && string.IsNullOrEmpty(info.cardName))
                     info.cardName = value.Replace("\"","");
