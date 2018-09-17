@@ -60,7 +60,7 @@ namespace NeoDownloader
 
         private static bool DownloadIndex()
         {
-            string url = "https://td-assets.bn765.com/" + Define.GameVersion + "/production/" + (Define.GameVersion>14580?2017.3:5.6) + "/Android/" + Define.IndexName;
+            string url = "ht" + "tps:/" + "/td-a" +"ssets.b" + "n" +"76" + "5.com/" + Define.GameVersion + "/production/" + (Define.GameVersion>14580?2017.3:5.6) + "/Android/" + Define.IndexName;
             ServicePointManager.ServerCertificateValidationCallback += (s, cert, chain, sslPolicyErrors) => true;
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
             try

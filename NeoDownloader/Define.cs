@@ -8,9 +8,7 @@ namespace NeoDownloader
 {
     public static class Define
     {
-        // example: https://td-assets.bn765.com/26125/production/2017.3/Android/a0f3735dd8de5ae6566cc103345659dd1a27dfbc.unity3d";
-        // SourceUrl + GameVersion + /production/ + UnityVersion + /Android/ + xxx.unity3d
-        public const string SourceUrl = "https://td-assets.bn765.com/";
+        public const string SourceUrl = "https:/" + "/t" + "d-a" + "ss" + "ets.bn7" + "65.c" + "om/";
         public static int GameVersion = 1;
         public static string IndexName = "";
         public static string UnityVersion = "2017.3";

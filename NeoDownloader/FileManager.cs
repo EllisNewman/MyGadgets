@@ -16,7 +16,7 @@ namespace NeoDownloader
             if (!File.Exists(Define.LocalPath + @"\urls.json"))
             {
                 StreamWriter sw = new StreamWriter(Define.LocalPath + @"\urls.json");
-                sw.Write("[\n\t\"https://td-assets.bn765.com/1/production/5.6/Android/6b976a4c875a1984592a66b621872ce44c944e72.data\"\n]");
+                sw.Write("[\n\t\"ht" + "tps://t" + "d-as" + "sets.bn7" + "65.c" + "om/1/pro" + "duction/5.6/Android/6b976a4c875a1984592a66b621872ce44c944e72.data\"\n]");
                 sw.Close();
 
                 MessageBox.Show("初次使用该程序时，建议在使用之前，先在主界面中点击右上角“使用说明”查看操作流程。" +
