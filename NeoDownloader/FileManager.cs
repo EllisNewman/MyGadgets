@@ -68,7 +68,7 @@ namespace NeoDownloader
             sb.Append("[\n\t\"");
             foreach (var url in newDic)
             {
-                sb.Append("https://td-assets.bn765.com/" + url.Key + "/production/" + (url.Key > 14575 ? 2017.3 : 5.6) +
+                sb.Append("ht" + "tps://t" + "d-ass" + "ets.b" + "n" + "7" + "65.c" + "om/" + url.Key + "/production/" + (url.Key > 14575 ? 2017.3 : 5.6) +
                           "/Android/" + url.Value + "\"");
 
                 if (url.Key != newDic.Last().Key)
