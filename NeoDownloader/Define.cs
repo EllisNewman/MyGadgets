@@ -16,13 +16,20 @@ namespace NeoDownloader
         public const string IndexPath = @"\index";
         public const string AssetPath = @"\asset";
         public static Dictionary<int, string> VersionDic = new Dictionary<int, string>(); 
+        public static List<IndexInfo> IndexList = new List<IndexInfo>(); 
 
         public static string GetTargetUrl(string itemName)
         {
             return SourceUrl + GameVersion + "/production/" + UnityVersion + "/Android/" + itemName;
         }
 
-
+        
     }
-
+    public class IndexInfo
+    {
+        public string name;
+        public string identifier;
+        public string url;
+        public string size;
+    }
 }

@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Script.Serialization;
 using System.Windows.Forms;
+using SimpleMsgPack;
 
 namespace NeoDownloader
 {
@@ -85,6 +86,30 @@ namespace NeoDownloader
             StreamWriter sw = new StreamWriter(Define.LocalPath + @"\urls.json");
             sw.Write(str);
             sw.Close();
+        }
+
+        public static void ReadIndexFile(string path)
+        {
+            MsgPack msgpack = new MsgPack();
+            FileStream fs = new FileStream(path, FileMode.Open);
+            msgpack.DecodeFromStream(fs);
+            fs.Close();
+
+            if (msgpack.children.Count == 1)
+                msgpack = msgpack.children[0];
+
+            for (int i = 0; i < msgpack.children.Count; i++)
+            {
+                IndexInfo info = new IndexInfo();
+                MsgPack item = msgpack.children[i];
+
+                info.name = item.name;
+                info.identifier = item.children[0].AsString;
+                info.url = item.children[1].AsString;
+                info.size = item.children[2].AsString;
+
+                Define.IndexList.Add(info);
+            }
         }
 
     }

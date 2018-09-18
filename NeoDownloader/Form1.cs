@@ -37,13 +37,17 @@ namespace NeoDownloader
         private void RefreshPanel(object sender, EventArgs e)
         {
             labelGameVersion.Text = Define.GameVersion.ToString();
-            if (File.Exists(Define.LocalPath + Define.IndexPath + @"\" + Define.VersionDic[Define.GameVersion]))
+            string indexPath = Define.LocalPath + Define.IndexPath + @"\" + Define.VersionDic[Define.GameVersion];
+            if (File.Exists(indexPath))
             {
                 labelIndex.Text = "就绪";
+                labelIndexDownload.Text = "";
+                FileManager.ReadIndexFile(indexPath);
             }
             else
             {
-                labelIndex.Text = "未下载";                
+                labelIndex.Text = "未下载";
+                labelIndexDownload.Text = "需下载索引文件才能继续使用。";
             }
         }
 

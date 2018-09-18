@@ -36,6 +36,12 @@
             this.btnGameVersionChange = new System.Windows.Forms.Button();
             this.btnHelp = new System.Windows.Forms.Button();
             this.labelIndexDownload = new System.Windows.Forms.Label();
+            this.groupMain = new System.Windows.Forms.GroupBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
+            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.groupMain.SuspendLayout();
             this.SuspendLayout();
             // 
             // s_labelGameVersion
@@ -113,11 +119,58 @@
             this.labelIndexDownload.TabIndex = 7;
             this.labelIndexDownload.Text = "label1";
             // 
+            // groupMain
+            // 
+            this.groupMain.Controls.Add(this.listBox1);
+            this.groupMain.Controls.Add(this.button1);
+            this.groupMain.Controls.Add(this.label1);
+            this.groupMain.Controls.Add(this.textBox1);
+            this.groupMain.Location = new System.Drawing.Point(15, 37);
+            this.groupMain.Name = "groupMain";
+            this.groupMain.Size = new System.Drawing.Size(878, 465);
+            this.groupMain.TabIndex = 8;
+            this.groupMain.TabStop = false;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(135, 21);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(218, 21);
+            this.textBox1.TabIndex = 0;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(28, 24);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(101, 12);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "输入查询关键字：";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(374, 19);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 2;
+            this.button1.Text = "查询";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // listBox1
+            // 
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.ItemHeight = 12;
+            this.listBox1.Location = new System.Drawing.Point(30, 62);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(507, 340);
+            this.listBox1.TabIndex = 3;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(905, 613);
+            this.Controls.Add(this.groupMain);
             this.Controls.Add(this.labelIndexDownload);
             this.Controls.Add(this.btnHelp);
             this.Controls.Add(this.btnGameVersionChange);
@@ -129,6 +182,8 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "Form1";
             this.Text = "NeoDownloader a0.1";
+            this.groupMain.ResumeLayout(false);
+            this.groupMain.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -144,6 +199,11 @@
         private System.Windows.Forms.Button btnGameVersionChange;
         private System.Windows.Forms.Button btnHelp;
         private System.Windows.Forms.Label labelIndexDownload;
+        private System.Windows.Forms.GroupBox groupMain;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.ListBox listBox1;
     }
 }
 
