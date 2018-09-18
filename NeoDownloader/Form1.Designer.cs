@@ -42,6 +42,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.txtBoxSearch = new System.Windows.Forms.TextBox();
             this.labelDownLoadInfo = new System.Windows.Forms.Label();
+            this.btnOpenDownloadPath = new System.Windows.Forms.Button();
+            this.btnCheck = new System.Windows.Forms.Button();
             this.groupMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -113,6 +115,7 @@
             // 
             // groupMain
             // 
+            this.groupMain.Controls.Add(this.btnCheck);
             this.groupMain.Controls.Add(this.listBoxResult);
             this.groupMain.Controls.Add(this.btnSearch);
             this.groupMain.Controls.Add(this.label1);
@@ -138,15 +141,15 @@
             this.listBoxResult.Font = new System.Drawing.Font("宋体", 14F);
             this.listBoxResult.FormattingEnabled = true;
             this.listBoxResult.ItemHeight = 19;
-            this.listBoxResult.Location = new System.Drawing.Point(30, 62);
+            this.listBoxResult.Location = new System.Drawing.Point(33, 58);
             this.listBoxResult.Name = "listBoxResult";
             this.listBoxResult.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.listBoxResult.Size = new System.Drawing.Size(477, 384);
+            this.listBoxResult.Size = new System.Drawing.Size(556, 384);
             this.listBoxResult.TabIndex = 3;
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(374, 19);
+            this.btnSearch.Location = new System.Drawing.Point(373, 20);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(75, 23);
             this.btnSearch.TabIndex = 3;
@@ -157,7 +160,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(28, 24);
+            this.label1.Location = new System.Drawing.Point(27, 25);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(101, 12);
             this.label1.TabIndex = 1;
@@ -165,7 +168,7 @@
             // 
             // txtBoxSearch
             // 
-            this.txtBoxSearch.Location = new System.Drawing.Point(135, 21);
+            this.txtBoxSearch.Location = new System.Drawing.Point(134, 22);
             this.txtBoxSearch.Name = "txtBoxSearch";
             this.txtBoxSearch.Size = new System.Drawing.Size(218, 21);
             this.txtBoxSearch.TabIndex = 0;
@@ -179,12 +182,33 @@
             this.labelDownLoadInfo.TabIndex = 9;
             this.labelDownLoadInfo.Text = "label2";
             // 
+            // btnOpenDownloadPath
+            // 
+            this.btnOpenDownloadPath.Location = new System.Drawing.Point(750, 508);
+            this.btnOpenDownloadPath.Name = "btnOpenDownloadPath";
+            this.btnOpenDownloadPath.Size = new System.Drawing.Size(124, 32);
+            this.btnOpenDownloadPath.TabIndex = 4;
+            this.btnOpenDownloadPath.Text = "打开下载目录";
+            this.btnOpenDownloadPath.UseVisualStyleBackColor = true;
+            this.btnOpenDownloadPath.Click += new System.EventHandler(this.btnOpenDownloadPath_Click);
+            // 
+            // btnCheck
+            // 
+            this.btnCheck.Location = new System.Drawing.Point(478, 20);
+            this.btnCheck.Name = "btnCheck";
+            this.btnCheck.Size = new System.Drawing.Size(111, 23);
+            this.btnCheck.TabIndex = 5;
+            this.btnCheck.Text = "与前个版本对比";
+            this.btnCheck.UseVisualStyleBackColor = true;
+            this.btnCheck.Click += new System.EventHandler(this.btnCheck_Click);
+            // 
             // Form1
             // 
             this.AcceptButton = this.btnSearch;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(886, 613);
+            this.Controls.Add(this.btnOpenDownloadPath);
             this.Controls.Add(this.btnAssetDownLoad);
             this.Controls.Add(this.labelDownLoadInfo);
             this.Controls.Add(this.groupMain);
@@ -221,6 +245,8 @@
         private System.Windows.Forms.ListBox listBoxResult;
         private System.Windows.Forms.Button btnAssetDownLoad;
         private System.Windows.Forms.Label labelDownLoadInfo;
+        private System.Windows.Forms.Button btnOpenDownloadPath;
+        private System.Windows.Forms.Button btnCheck;
     }
 }
 

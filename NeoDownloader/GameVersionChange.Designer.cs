@@ -62,11 +62,12 @@
             // 
             // btnFinish
             // 
+            this.btnFinish.Font = new System.Drawing.Font("宋体", 10F);
             this.btnFinish.Location = new System.Drawing.Point(361, 274);
             this.btnFinish.Name = "btnFinish";
             this.btnFinish.Size = new System.Drawing.Size(129, 65);
             this.btnFinish.TabIndex = 2;
-            this.btnFinish.Text = "保存并切换";
+            this.btnFinish.Text = "保存并确认";
             this.btnFinish.UseVisualStyleBackColor = true;
             this.btnFinish.Click += new System.EventHandler(this.btnFinish_Click);
             // 
@@ -82,11 +83,12 @@
             // 
             // btnLatest
             // 
-            this.btnLatest.Location = new System.Drawing.Point(35, 44);
+            this.btnLatest.Font = new System.Drawing.Font("宋体", 10F);
+            this.btnLatest.Location = new System.Drawing.Point(36, 61);
             this.btnLatest.Name = "btnLatest";
             this.btnLatest.Size = new System.Drawing.Size(128, 69);
             this.btnLatest.TabIndex = 5;
-            this.btnLatest.Text = "自动查询最新版本";
+            this.btnLatest.Text = "查询最新版本";
             this.btnLatest.UseVisualStyleBackColor = true;
             this.btnLatest.Click += new System.EventHandler(this.btnLatest_Click);
             // 

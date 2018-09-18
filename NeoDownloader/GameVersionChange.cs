@@ -85,6 +85,7 @@ namespace NeoDownloader
 
             Close();
             Define.IndexDic.Clear();
+            
         }
 
         private bool isResultError(string result)

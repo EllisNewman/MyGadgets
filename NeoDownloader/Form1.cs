@@ -43,7 +43,7 @@ namespace NeoDownloader
             }
 
             labelDownLoadInfo.Text = "";
-            RefreshPanel(null, null);
+            ResetPanel();
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
@@ -66,7 +66,7 @@ namespace NeoDownloader
         {
             MessageBox.Show("如果你是初次使用该程序，建议按以下操作步骤进行：" +
                                 "\n\n\t1、在主界面中，点击“版本号切换”按钮" +
-                                "\n\n\t2、在弹出的窗口中选择“自动查询最新版本”，待完成后点击“保存并切换”按钮" +
+                                "\n\n\t2、在弹出的窗口中选择“查询最新版本”，待完成后点击“保存并确认”按钮" +
                                 "\n\n\t3、回到主界面，点击“下载索引文件”按钮，并等待下载完成。" +
                                 "\n\n\t完成之后，即可开始使用。" +
                             "\n\n如有意外报错和崩溃，请先尝试将程序目录下urls.json和index文件夹备份后删除，然后" +
@@ -75,8 +75,16 @@ namespace NeoDownloader
                             "\n\n改进或了解程序原理可到github.com/EllisNewman/MyGadgets/处查看。意见反馈和报错请联系Excel。",
                     "使用说明", MessageBoxButtons.OK);
         }
+
         private void btnDownLoad_Click(object sender, EventArgs e)
         {
+            if (listBoxResult.SelectedItems.Count < 1)
+            {
+                labelDownLoadInfo.Text = "尚未选择要下载的资源。通过检索关键字或版本对比功能展示资源列表后，" +
+                                         "点击选择某项或某几项资源，再从此处开始下载。";
+                return;
+            }
+
             StringBuilder sb = new StringBuilder("开始下载：");
 
             foreach (var item in listBoxResult.SelectedItems)
@@ -95,7 +103,52 @@ namespace NeoDownloader
             labelDownLoadInfo.Text = "下载完成！";
         }
 
+        private void btnOpenDownloadPath_Click(object sender, EventArgs e)
+        {
+            if (!Directory.Exists(Define.LocalPath + Define.AssetPath + "/" + Define.GameVersion))
+            {
+                Directory.CreateDirectory(Define.LocalPath + Define.AssetPath + "/" + Define.GameVersion);
+            }
+
+            System.Diagnostics.Process.Start("Explorer.exe", Define.LocalPath + Define.AssetPath);
+        }
+
+        private void btnCheck_Click(object sender, EventArgs e)
+        {
+            if (Define.VersionDic.Count < 2)
+            {
+                MessageBox.Show("在本地仅检测到一个版本号，无法进行对比。\n\n可先通过“版本号切换”功能查找版本号，然后" +
+                                "下载相应索引文件，即可进行版本对比。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+            
+            DialogResult dr = MessageBox.Show("将进行版本更新内容对比" +
+                                              "\n\n当前版本：" + Define.GameVersion +
+                                              "\n\n前个版本：" + 
+                                              "\n\n是否确定？" +
+                                              "\n\n用于版本更新时，检查并显示新版本修改的内容。两个版本之间的" +
+                                              "差距不宜过大。\n\n进行对比的两个版本都需要备好各自的索引文件。需先" +
+                                              "通过“版本号切换”功能查找所需版本，并下载索引文件。", 
+                                              "版本对比", MessageBoxButtons.OKCancel);
+
+            if (dr == DialogResult.OK)
+            {
+                
+            }
+        }
+
         private void RefreshPanel(object sender, EventArgs e)
+        {
+            if (labelGameVersion.Text == Define.GameVersion.ToString())
+            {
+                return;
+            }
+
+            ResetPanel();
+            
+        }
+
+        private void ResetPanel()
         {
             listBoxResult.Items.Clear();
             string indexPath = Define.LocalPath + Define.IndexPath + @"\" + Define.VersionDic[Define.GameVersion];
@@ -112,8 +165,6 @@ namespace NeoDownloader
             }
             labelGameVersion.Text = Define.GameVersion.ToString();
         }
-
-
 
 
     }
