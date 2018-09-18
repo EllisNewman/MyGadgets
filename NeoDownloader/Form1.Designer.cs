@@ -35,12 +35,13 @@
             this.btnIndexDownload = new System.Windows.Forms.Button();
             this.btnGameVersionChange = new System.Windows.Forms.Button();
             this.btnHelp = new System.Windows.Forms.Button();
-            this.labelIndexDownload = new System.Windows.Forms.Label();
             this.groupMain = new System.Windows.Forms.GroupBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.btnAssetDownLoad = new System.Windows.Forms.Button();
+            this.listBoxResult = new System.Windows.Forms.ListBox();
+            this.btnSearch = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.txtBoxSearch = new System.Windows.Forms.TextBox();
+            this.labelDownLoadInfo = new System.Windows.Forms.Label();
             this.groupMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -102,7 +103,7 @@
             // 
             // btnHelp
             // 
-            this.btnHelp.Location = new System.Drawing.Point(818, 8);
+            this.btnHelp.Location = new System.Drawing.Point(799, 8);
             this.btnHelp.Name = "btnHelp";
             this.btnHelp.Size = new System.Drawing.Size(75, 23);
             this.btnHelp.TabIndex = 0;
@@ -110,33 +111,48 @@
             this.btnHelp.UseVisualStyleBackColor = true;
             this.btnHelp.Click += new System.EventHandler(this.btnHelp_Click);
             // 
-            // labelIndexDownload
-            // 
-            this.labelIndexDownload.AutoSize = true;
-            this.labelIndexDownload.Location = new System.Drawing.Point(485, 13);
-            this.labelIndexDownload.Name = "labelIndexDownload";
-            this.labelIndexDownload.Size = new System.Drawing.Size(41, 12);
-            this.labelIndexDownload.TabIndex = 7;
-            this.labelIndexDownload.Text = "label1";
-            // 
             // groupMain
             // 
-            this.groupMain.Controls.Add(this.listBox1);
-            this.groupMain.Controls.Add(this.button1);
+            this.groupMain.Controls.Add(this.listBoxResult);
+            this.groupMain.Controls.Add(this.btnSearch);
             this.groupMain.Controls.Add(this.label1);
-            this.groupMain.Controls.Add(this.textBox1);
+            this.groupMain.Controls.Add(this.txtBoxSearch);
             this.groupMain.Location = new System.Drawing.Point(15, 37);
             this.groupMain.Name = "groupMain";
-            this.groupMain.Size = new System.Drawing.Size(878, 465);
+            this.groupMain.Size = new System.Drawing.Size(859, 465);
             this.groupMain.TabIndex = 8;
             this.groupMain.TabStop = false;
             // 
-            // textBox1
+            // btnAssetDownLoad
             // 
-            this.textBox1.Location = new System.Drawing.Point(135, 21);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(218, 21);
-            this.textBox1.TabIndex = 0;
+            this.btnAssetDownLoad.Location = new System.Drawing.Point(750, 552);
+            this.btnAssetDownLoad.Name = "btnAssetDownLoad";
+            this.btnAssetDownLoad.Size = new System.Drawing.Size(124, 42);
+            this.btnAssetDownLoad.TabIndex = 10;
+            this.btnAssetDownLoad.Text = "下载";
+            this.btnAssetDownLoad.UseVisualStyleBackColor = true;
+            this.btnAssetDownLoad.Click += new System.EventHandler(this.btnDownLoad_Click);
+            // 
+            // listBoxResult
+            // 
+            this.listBoxResult.Font = new System.Drawing.Font("宋体", 14F);
+            this.listBoxResult.FormattingEnabled = true;
+            this.listBoxResult.ItemHeight = 19;
+            this.listBoxResult.Location = new System.Drawing.Point(30, 62);
+            this.listBoxResult.Name = "listBoxResult";
+            this.listBoxResult.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
+            this.listBoxResult.Size = new System.Drawing.Size(477, 384);
+            this.listBoxResult.TabIndex = 3;
+            // 
+            // btnSearch
+            // 
+            this.btnSearch.Location = new System.Drawing.Point(374, 19);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(75, 23);
+            this.btnSearch.TabIndex = 3;
+            this.btnSearch.Text = "查询";
+            this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // label1
             // 
@@ -147,31 +163,31 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "输入查询关键字：";
             // 
-            // button1
+            // txtBoxSearch
             // 
-            this.button1.Location = new System.Drawing.Point(374, 19);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "查询";
-            this.button1.UseVisualStyleBackColor = true;
+            this.txtBoxSearch.Location = new System.Drawing.Point(135, 21);
+            this.txtBoxSearch.Name = "txtBoxSearch";
+            this.txtBoxSearch.Size = new System.Drawing.Size(218, 21);
+            this.txtBoxSearch.TabIndex = 0;
             // 
-            // listBox1
+            // labelDownLoadInfo
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 12;
-            this.listBox1.Location = new System.Drawing.Point(30, 62);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(507, 340);
-            this.listBox1.TabIndex = 3;
+            this.labelDownLoadInfo.Font = new System.Drawing.Font("宋体", 11F);
+            this.labelDownLoadInfo.Location = new System.Drawing.Point(45, 528);
+            this.labelDownLoadInfo.Name = "labelDownLoadInfo";
+            this.labelDownLoadInfo.Size = new System.Drawing.Size(684, 66);
+            this.labelDownLoadInfo.TabIndex = 9;
+            this.labelDownLoadInfo.Text = "label2";
             // 
             // Form1
             // 
+            this.AcceptButton = this.btnSearch;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(905, 613);
+            this.ClientSize = new System.Drawing.Size(886, 613);
+            this.Controls.Add(this.btnAssetDownLoad);
+            this.Controls.Add(this.labelDownLoadInfo);
             this.Controls.Add(this.groupMain);
-            this.Controls.Add(this.labelIndexDownload);
             this.Controls.Add(this.btnHelp);
             this.Controls.Add(this.btnGameVersionChange);
             this.Controls.Add(this.btnIndexDownload);
@@ -198,12 +214,13 @@
         private System.Windows.Forms.Button btnIndexDownload;
         private System.Windows.Forms.Button btnGameVersionChange;
         private System.Windows.Forms.Button btnHelp;
-        private System.Windows.Forms.Label labelIndexDownload;
         private System.Windows.Forms.GroupBox groupMain;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.TextBox txtBoxSearch;
+        private System.Windows.Forms.ListBox listBoxResult;
+        private System.Windows.Forms.Button btnAssetDownLoad;
+        private System.Windows.Forms.Label labelDownLoadInfo;
     }
 }
 

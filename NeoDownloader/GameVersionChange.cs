@@ -84,6 +84,7 @@ namespace NeoDownloader
             FileManager.SaveVersionFile();
 
             Close();
+            Define.IndexDic.Clear();
         }
 
         private bool isResultError(string result)
