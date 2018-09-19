@@ -151,6 +151,7 @@
             // 
             // GameVersionChange
             // 
+            this.AcceptButton = this.btnCheck;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(519, 366);

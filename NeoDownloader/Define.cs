@@ -15,8 +15,9 @@ namespace NeoDownloader
         public static string LocalPath;
         public const string IndexPath = @"\index";
         public const string AssetPath = @"\asset";
-        public static Dictionary<int, string> VersionDic = new Dictionary<int, string>(); 
-        public static Dictionary<string, IndexInfo> IndexDic = new Dictionary<string, IndexInfo>(); 
+        public static Dictionary<int, string> VersionDic = new Dictionary<int, string>();
+        public static Dictionary<string, IndexInfo> IndexDic = new Dictionary<string, IndexInfo>();
+        public static Dictionary<string, IndexInfo> IndexDicCache = new Dictionary<string, IndexInfo>(); // 目前仅用于版本对比
 
         public static string GetTargetUrl(string itemName)
         {

@@ -11,8 +11,11 @@ using SimpleMsgPack;
 
 namespace NeoDownloader
 {
+    //静态类，处理所有与文件存取相关的操作。
+    //包括urls.json文件和各个版本的索引文件的存取。以及资源文件的下载。
     public static class FileManager
     {
+        //urls.json文件不存在时，判定为首次使用。新建该文件。
         public static void CheckVersionFile()
         {
             if (!File.Exists(Define.LocalPath + @"\urls.json"))
@@ -21,7 +24,7 @@ namespace NeoDownloader
                 sw.Write("[\n\t\"ht" + "tps://t" + "d-as" + "sets.bn7" + "65.c" + "om/1/pro" + "duction/5.6/Android/6b976a4c875a1984592a66b621872ce44c944e72.data\"\n]");
                 sw.Close();
 
-                MessageBox.Show("初次使用该程序时，需要先在主界面中点击“版本号切换”获取最新版本号。详细内容可在主界面中点击右上角“使用说明”查看。" +
+                MessageBox.Show("初次使用该程序时，需要先在主界面中点击“版本号切换”获取最新版本号。版本号 “ 1 ” 过于古老，已无用。详细内容可在主界面中点击右上角“使用说明”查看。" +
                                 "\n\n原downloader的urls.json文件可直接继承，放至本程序所在目录即可。原data目录下的索引文件，则需在本程序所在目录下新建index文件夹并放置进去，即可使用。" +
                                 "\n\n各种查询、下载过程中程序未响应是正常现象，持续时间由网速决定。（甩锅）",
                     "注意", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -38,6 +41,7 @@ namespace NeoDownloader
             }
         }
 
+        //读取urls.json文件，将里面所有url保存至字典中。
         public static void ReadVersionFile()
         {
             StreamReader sr = new StreamReader(Define.LocalPath + @"\urls.json");
@@ -63,6 +67,7 @@ namespace NeoDownloader
             sr.Close();
         }
 
+        //覆盖保存urls.json文件。正常情况下新文件url数量总是会大于等于旧文件。
         public static void SaveVersionFile()
         {
             Dictionary<int, string> newDic = Define.VersionDic.OrderBy(o => o.Key).ToDictionary(o => o.Key, p => p.Value);
@@ -89,6 +94,7 @@ namespace NeoDownloader
             sw.Close();
         }
 
+        //按指定版本路径读取索引文件，将每一条内容存入字典中。
         public static void ReadIndexFile(string path)
         {
             Define.IndexDic.Clear();
@@ -117,6 +123,37 @@ namespace NeoDownloader
                 Define.IndexDic = Define.IndexDic.OrderBy(o => o.Key).ToDictionary(o => o.Key, p => p.Value);
         }
 
+        //按指定版本路径读取索引文件，将每一条内容存入缓存字典中。目前仅用于版本对比
+        public static void ReadIndexCacheFile(string path)
+        {
+            Define.IndexDicCache.Clear();
+            MsgPack msgpack = new MsgPack();
+            FileStream fs = new FileStream(path, FileMode.Open);
+            msgpack.DecodeFromStream(fs);
+            fs.Close();
+
+            if (msgpack.children.Count == 1)
+                msgpack = msgpack.children[0];
+
+            for (int i = 0; i < msgpack.children.Count; i++)
+            {
+                IndexInfo info = new IndexInfo();
+                MsgPack item = msgpack.children[i];
+
+                info.name = item.name;
+                info.identifier = item.children[0].AsString;
+                info.url = item.children[1].AsString;
+                info.size = item.children[2].AsString;
+
+                Define.IndexDicCache.Add(info.name, info);
+            }
+
+            if (Define.IndexDicCache.Count > 0)
+                Define.IndexDicCache = Define.IndexDicCache.OrderBy(o => o.Key).ToDictionary(o => o.Key, p => p.Value);
+        }
+
+        //按照当前游戏版本查询对应索引文件并下载。
+        //todo : 多线程？进度条？错误处理？
         public static bool DownloadIndex()
         {
             string url = "ht" + "tps:/" + "/td-a" + "ssets.b" + "n" + "76" + "5.com/" + Define.GameVersion + "/production/" + (Define.GameVersion > 14580 ? 2017.3 : 5.6) + "/Android/" + Define.IndexName;
@@ -152,6 +189,7 @@ namespace NeoDownloader
             return false;
         }
 
+        //根据传入的素材名和对应url下载该素材，并保存至对应版本的目录。
         public static bool DownLoadAsset(string assetName, string urlName)
         {
             if (!Directory.Exists(Define.LocalPath + Define.AssetPath + "/" + Define.GameVersion))
