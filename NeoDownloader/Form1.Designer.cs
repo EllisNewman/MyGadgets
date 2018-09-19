@@ -321,6 +321,7 @@
             this.Controls.Add(this.labelGameVersion);
             this.Controls.Add(this.s_labelGameVersion);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "NeoDownloader a0.1";
             this.groupMain.ResumeLayout(false);
