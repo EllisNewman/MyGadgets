@@ -37,6 +37,15 @@
             this.btnGameVersionChange = new System.Windows.Forms.Button();
             this.btnHelp = new System.Windows.Forms.Button();
             this.groupMain = new System.Windows.Forms.GroupBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.btnCheck = new System.Windows.Forms.Button();
             this.listBoxResult = new System.Windows.Forms.ListBox();
             this.btnSearch = new System.Windows.Forms.Button();
@@ -45,15 +54,7 @@
             this.btnAssetDownLoad = new System.Windows.Forms.Button();
             this.labelDownLoadInfo = new System.Windows.Forms.Label();
             this.btnOpenDownloadPath = new System.Windows.Forms.Button();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
+            this.labelVersionTime = new System.Windows.Forms.Label();
             this.groupMain.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -138,6 +139,95 @@
             this.groupMain.TabIndex = 8;
             this.groupMain.TabStop = false;
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.label9);
+            this.groupBox1.Controls.Add(this.label8);
+            this.groupBox1.Controls.Add(this.label7);
+            this.groupBox1.Controls.Add(this.label6);
+            this.groupBox1.Controls.Add(this.label5);
+            this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Location = new System.Drawing.Point(623, 25);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(269, 417);
+            this.groupBox1.TabIndex = 6;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "可能用到的关键字和对照表：";
+            // 
+            // label4
+            // 
+            this.label4.Font = new System.Drawing.Font("宋体", 10F);
+            this.label4.Location = new System.Drawing.Point(17, 217);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(238, 197);
+            this.label4.TabIndex = 8;
+            this.label4.Text = resources.GetString("label4.Text");
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(30, 99);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(185, 12);
+            this.label9.TabIndex = 7;
+            this.label9.Text = "icon_[偶像id+偶像简称][卡面id]";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(18, 77);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(65, 12);
+            this.label8.TabIndex = 6;
+            this.label8.Text = "卡面头像：";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(30, 168);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(167, 12);
+            this.label7.TabIndex = 5;
+            this.label7.Text = "ch_[类别]_[偶像id+偶像简称]";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(30, 147);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(167, 12);
+            this.label6.TabIndex = 4;
+            this.label6.Text = "cb_[类别]_[偶像id+偶像简称]";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(18, 120);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(41, 12);
+            this.label5.TabIndex = 3;
+            this.label5.Text = "模型：";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(30, 54);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(155, 12);
+            this.label3.TabIndex = 1;
+            this.label3.Text = "[偶像id+偶像简称][卡面id]";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(18, 33);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(41, 12);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "卡面：";
+            // 
             // btnCheck
             // 
             this.btnCheck.Location = new System.Drawing.Point(478, 20);
@@ -214,94 +304,14 @@
             this.btnOpenDownloadPath.UseVisualStyleBackColor = true;
             this.btnOpenDownloadPath.Click += new System.EventHandler(this.btnOpenDownloadPath_Click);
             // 
-            // groupBox1
+            // labelVersionTime
             // 
-            this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.label9);
-            this.groupBox1.Controls.Add(this.label8);
-            this.groupBox1.Controls.Add(this.label7);
-            this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Location = new System.Drawing.Point(623, 25);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(269, 417);
-            this.groupBox1.TabIndex = 6;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "可能用到的关键字和对照表：";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(18, 33);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(41, 12);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "卡面：";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(30, 54);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(155, 12);
-            this.label3.TabIndex = 1;
-            this.label3.Text = "[偶像id+偶像简称][卡面id]";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(18, 120);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(41, 12);
-            this.label5.TabIndex = 3;
-            this.label5.Text = "模型：";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(30, 147);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(167, 12);
-            this.label6.TabIndex = 4;
-            this.label6.Text = "cb_[类别]_[偶像id+偶像简称]";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(30, 168);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(167, 12);
-            this.label7.TabIndex = 5;
-            this.label7.Text = "ch_[类别]_[偶像id+偶像简称]";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(18, 77);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(65, 12);
-            this.label8.TabIndex = 6;
-            this.label8.Text = "卡面头像：";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(30, 99);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(185, 12);
-            this.label9.TabIndex = 7;
-            this.label9.Text = "icon_[偶像id+偶像简称][卡面id]";
-            // 
-            // label4
-            // 
-            this.label4.Font = new System.Drawing.Font("宋体", 10F);
-            this.label4.Location = new System.Drawing.Point(17, 217);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(238, 197);
-            this.label4.TabIndex = 8;
-            this.label4.Text = resources.GetString("label4.Text");
+            this.labelVersionTime.AutoSize = true;
+            this.labelVersionTime.Location = new System.Drawing.Point(523, 13);
+            this.labelVersionTime.Name = "labelVersionTime";
+            this.labelVersionTime.Size = new System.Drawing.Size(47, 12);
+            this.labelVersionTime.TabIndex = 12;
+            this.labelVersionTime.Text = "label10";
             // 
             // Form1
             // 
@@ -309,6 +319,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(943, 613);
+            this.Controls.Add(this.labelVersionTime);
             this.Controls.Add(this.btnOpenDownloadPath);
             this.Controls.Add(this.btnAssetDownLoad);
             this.Controls.Add(this.labelDownLoadInfo);
@@ -323,7 +334,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
-            this.Text = "NeoDownloader a0.1";
+            this.Text = "NeoDownloader a0.2";
             this.groupMain.ResumeLayout(false);
             this.groupMain.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -360,6 +371,7 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label labelVersionTime;
     }
 }
 

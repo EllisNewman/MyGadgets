@@ -75,6 +75,7 @@ namespace NeoDownloader
 
             Define.GameVersion = cacheVersionInfo.version;
             Define.IndexName = cacheVersionInfo.indexName;
+            Define.VersionUpdateTime = cacheVersionInfo.updateTime;
 
             if (!Define.VersionDic.ContainsKey(cacheVersionInfo.version))
             {
@@ -83,8 +84,8 @@ namespace NeoDownloader
 
             FileManager.SaveVersionFile();
 
-            Close();
             Define.IndexDic.Clear();
+            Close();
             
         }
 

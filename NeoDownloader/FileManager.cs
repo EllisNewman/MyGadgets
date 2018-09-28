@@ -21,11 +21,11 @@ namespace NeoDownloader
             if (!File.Exists(Define.LocalPath + @"\urls.json"))
             {
                 StreamWriter sw = new StreamWriter(Define.LocalPath + @"\urls.json");
-                sw.Write("[\n\t\"ht" + "tps://t" + "d-as" + "sets.bn7" + "65.c" + "om/1/pro" + "duction/5.6/Android/6b976a4c875a1984592a66b621872ce44c944e72.data\"\n]");
+                sw.Write("[\n\t\"ht" + "tps://t" + "d-as" + "sets.bn7" + "65.c" + "om/26800/pro" + "duction/2017.3/Android/509c3bbf07a3c10e8157bfb54685359bf66b227e.data\"\n]");
                 sw.Close();
 
-                MessageBox.Show("初次使用该程序时，需要先在主界面中点击“版本号切换”获取最新版本号。版本号 “ 1 ” 过于古老，已无用。详细内容可在主界面中点击右上角“使用说明”查看。" +
-                                "\n\n原downloader的urls.json文件可直接继承，放至本程序所在目录即可。原data目录下的索引文件，则需在本程序所在目录下新建index文件夹并放置进去，即可使用。" +
+                MessageBox.Show("初次使用该程序时，需要先在主界面中点击“版本号切换”获取最新版本号。详细内容可在主界面中点击右上角“使用说明”查看。" +
+                                "\n\n原downloader的urls.json文件可直接继承，放至本程序所在目录即可。原data目录下的索引文件，需放置在本程序所在目录下index文件夹中，即可使用。" +
                                 "\n\n各种查询、下载过程中程序未响应是正常现象，持续时间由网速决定。（甩锅）",
                     "注意", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -44,30 +44,29 @@ namespace NeoDownloader
         //读取urls.json文件，将里面所有url保存至字典中。
         public static void ReadVersionFile()
         {
-            StreamReader sr = new StreamReader(Define.LocalPath + @"\urls.json");
-            string str = sr.ReadToEnd();
-            str = System.Text.RegularExpressions.Regex.Replace(str, "[\r\n\t]", "");
-
+            StreamReader srUrlFile = new StreamReader(Define.LocalPath + @"\urls.json");
+            string strUrl = System.Text.RegularExpressions.Regex.Replace(srUrlFile.ReadToEnd(), "[\r\n\t]", "");
 
             JavaScriptSerializer js = new JavaScriptSerializer();
-            List<string> urlList = js.Deserialize<List<string>>(str);
+            List<string> urlList = js.Deserialize<List<string>>(strUrl);
 
             foreach (var url in urlList)
             {
                 string strVersion = url.Split('/')[3];
                 string strName = url.Split('/')[7];
                 int version;
-                int.TryParse(strVersion, out version);
+                if (!int.TryParse(strVersion, out version)) continue;
+
                 if (!Define.VersionDic.ContainsKey(version))
                 {
                     Define.VersionDic.Add(version, strName);
                 }
             }
 
-            sr.Close();
+            srUrlFile.Close();
         }
 
-        //覆盖保存urls.json文件。正常情况下新文件url数量总是会大于等于旧文件。
+        //覆盖保存urls.json文件。正常情况下新文件中url的数量总是会大于等于旧文件，因此覆盖不会产生数据丢失。
         public static void SaveVersionFile()
         {
             Dictionary<int, string> newDic = Define.VersionDic.OrderBy(o => o.Key).ToDictionary(o => o.Key, p => p.Value);
@@ -95,32 +94,40 @@ namespace NeoDownloader
         }
 
         //按指定版本路径读取索引文件，将每一条内容存入字典中。
-        public static void ReadIndexFile(string path)
+        public static bool ReadIndexFile(string path)
         {
-            Define.IndexDic.Clear();
+            Define.IndexDic.Clear(); // 首先清理字典
             MsgPack msgpack = new MsgPack();
             FileStream fs = new FileStream(path, FileMode.Open);
             msgpack.DecodeFromStream(fs);
             fs.Close();
 
-            if (msgpack.children.Count == 1)
-                msgpack = msgpack.children[0];
-
-            for (int i = 0; i < msgpack.children.Count; i++)
+            if (msgpack.children.Count != 1)
             {
-                IndexInfo info = new IndexInfo();
-                MsgPack item = msgpack.children[i];
+                return false;
+            }
+            msgpack = msgpack.children[0];
 
-                info.name = item.name;
-                info.identifier = item.children[0].AsString;
-                info.url = item.children[1].AsString;
-                info.size = item.children[2].AsString;
+            foreach (MsgPack item in msgpack.children)
+            {
+                if (item.children.Count < 3) // 如果小于3则说明发生错误。可能是文件本身在下载过程中发生缺失。
+                    return false;
+
+                IndexInfo info = new IndexInfo
+                {
+                    name = item.name,
+                    identifier = item.children[0].AsString,
+                    url = item.children[1].AsString,
+                    size = item.children[2].AsString
+                };
 
                 Define.IndexDic.Add(info.name, info);
             }
 
             if (Define.IndexDic.Count > 0)
                 Define.IndexDic = Define.IndexDic.OrderBy(o => o.Key).ToDictionary(o => o.Key, p => p.Value);
+
+            return true;
         }
 
         //按指定版本路径读取索引文件，将每一条内容存入缓存字典中。目前仅用于版本对比
