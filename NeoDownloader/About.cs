@@ -11,6 +11,7 @@ using System.Windows.Forms;
 
 namespace NeoDownloader
 {
+    // “使用说明” 窗口中的内容
     public partial class About : Form
     {
         public About()

@@ -129,7 +129,6 @@ namespace NeoDownloader
                     , "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
-
             return strResult;
         }
 
@@ -150,6 +149,7 @@ namespace NeoDownloader
 
         public class LatestVersionInfo
         {
+            // app、res均为json解析格式要求所命名
             public App app { get; set; }
             public Res res { get; set; }
         }

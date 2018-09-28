@@ -15,7 +15,7 @@ namespace NeoDownloader
     //包括urls.json文件和各个版本的索引文件的存取。以及资源文件的下载。
     public static class FileManager
     {
-        //urls.json文件不存在时，判定为首次使用。新建该文件。
+        //urls.json文件不存在时，判定为用户首次使用该程序。新建该文件并预先新建好各个目录。
         public static void CheckVersionFile()
         {
             if (!File.Exists(Define.LocalPath + @"\urls.json"))
