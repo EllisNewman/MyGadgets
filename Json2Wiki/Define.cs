@@ -171,7 +171,7 @@ namespace Json2Wiki
 
         public static Dictionary<int, string> idolName   = new Dictionary<int, string>();
         public static Dictionary<int, string> idolType   = new Dictionary<int, string>();
-        public static Dictionary<int, string>    idolRarity = new Dictionary<int, string>();
+        public static Dictionary<int, string> idolRarity = new Dictionary<int, string>();
  
     }
 

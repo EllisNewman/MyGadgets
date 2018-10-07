@@ -1,7 +1,7 @@
 ﻿//-------------------------------------------
 //by Excel
 //
-//ver alpha 0.35
+//ver alpha 0.4
 //
 //-------------------------------------------
 using System;
@@ -39,8 +39,6 @@ namespace Json2Wiki
                     Console.WriteLine();
                     continue;
                 }
-
-                //List<CardInfo> infoList = JsonConvert.DeserializeObject<List<CardInfo>>(result);
 
                 JavaScriptSerializer js = new JavaScriptSerializer();
                 List<CardInfo> infoList = js.Deserialize<List<CardInfo>>(result);
