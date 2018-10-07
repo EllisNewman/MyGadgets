@@ -15,7 +15,7 @@ namespace ImageComposer
             this.MaximizeBox = false;
             panelRareUpright.Visible = false;
             panelGasha.Visible = false;
-            labelGashaInfo.Visible = false;
+            panelGashaInfo.Visible = false;
             labelWhiteBoard.Visible = false;
         }
 
@@ -88,7 +88,7 @@ namespace ImageComposer
                 panelCard.Visible = true;
                 panelRareUpright.Visible = false;
                 panelGasha.Visible = false;
-                labelGashaInfo.Visible = false;
+                panelGashaInfo.Visible = false;
                 labelWhiteBoard.Visible = false;
             }
 
@@ -98,7 +98,7 @@ namespace ImageComposer
                 panelCard.Visible = false;
                 panelRareUpright.Visible = true;
                 panelGasha.Visible = false;
-                labelGashaInfo.Visible = false;
+                panelGashaInfo.Visible = false;
                 labelWhiteBoard.Visible = false;
             }
 
@@ -108,7 +108,7 @@ namespace ImageComposer
                 panelCard.Visible = false;
                 panelRareUpright.Visible = false;
                 panelGasha.Visible = true;
-                labelGashaInfo.Visible = false;
+                panelGashaInfo.Visible = false;
                 labelWhiteBoard.Visible = false;
             }
 
@@ -118,7 +118,7 @@ namespace ImageComposer
                 panelCard.Visible = false;
                 panelRareUpright.Visible = false;
                 panelGasha.Visible = false;
-                labelGashaInfo.Visible = true;
+                panelGashaInfo.Visible = true;
                 labelWhiteBoard.Visible = false;
             }
 
@@ -128,7 +128,7 @@ namespace ImageComposer
                 panelCard.Visible = false;
                 panelRareUpright.Visible = false;
                 panelGasha.Visible = false;
-                labelGashaInfo.Visible = false;
+                panelGashaInfo.Visible = false;
                 labelWhiteBoard.Visible = true;
             }
         }
@@ -190,6 +190,21 @@ namespace ImageComposer
             }
         }
 
+        //卡池信息图拼接功能内的参数选择
+        private void GashaInfoChanged(object sender, EventArgs e)
+        {
+            if (radioNewReso.Checked)
+            {
+                FileManager.gashaInfoType = GASHAINFO_TYPE.New;
+            }
+
+            if (radioOldReso.Checked)
+            {
+                FileManager.gashaInfoType = GASHAINFO_TYPE.Old;
+            }
+
+        }
+
         //点击“使用说明”按钮时执行
         private void button1_Click_1(object sender, EventArgs e)
         {
@@ -198,8 +213,8 @@ namespace ImageComposer
                             "3. 在打开文件对话框中多选文件，即可进行批量转换。可能会占用较高CPU、内存和硬盘读写率。\n\n" +
                             "4. 生成适配宽屏的长图，需将原图两张素材放在同一目录下。打开文件时，只需选择大图部分，即1024x1024那张图片。\n\n" +
                             "5. 图片拼接时请注意是否出现图片错位的情况。如有错位，请尝试同类型其他拼图功能进行拼接。如果错位情况仍然存在，请手动进行拼接，并联系开发者。 \n\n" +
-                            "6. 关于卡池信息图，自tb02活动起，信息介绍图的分辨率提高了，因此自v1.5版本起拼接算法有改动。若要" +
-                            "拼接tb02之前的活动卡池图，需使用v1.4（含）或更早的版本进行操作。\n\n" +
+                            "6. 关于卡池信息图，自tb02活动起，信息介绍图的分辨率提高了，因此拼接算法有改动。若要" +
+                            "拼接tb02之前的活动卡池图，需选择「低分辨率旧版」选项进行操作。\n\n" +
                             "最后，报错信息可能会误报……最终结果以是否成功生成图片为准。\n\n" + 
                             "\t\t\t\t\tBUG提交和反馈请联系Excel。",
                             "使用说明");

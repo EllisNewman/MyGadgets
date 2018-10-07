@@ -12,6 +12,7 @@ namespace ImageComposer
         public static UPRIGHT_TYPE uprightType = UPRIGHT_TYPE.Both;
         public static CARD_TYPE cardType = CARD_TYPE.Origin;
         public static GASHA_TYPE gashaType = GASHA_TYPE.Origin;
+        public static GASHAINFO_TYPE gashaInfoType = GASHAINFO_TYPE.New;
 
         //拼图流程的主入口，从此处区分各个功能要执行的不同操作
         public static ERROR_TYPE ImageCompose(string path)
@@ -631,52 +632,104 @@ namespace ImageComposer
                 return ERROR_TYPE.SizeError;
             }
 
-            Bitmap bitmapLeft = new Bitmap(510, 366);
-            Bitmap bitmapRight = new Bitmap(366, 140);
-            Bitmap bitmapResult = new Bitmap(650, 366);
-
-            Graphics graphics = Graphics.FromImage(bitmapLeft);
-            graphics.DrawImage(bitmapOrigin, new Rectangle(0,0,510,366), 0, 0, 510, 366, GraphicsUnit.Pixel);
-
-            Graphics graphics2 = Graphics.FromImage(bitmapRight);
-            graphics2.DrawImage(bitmapOrigin, new Rectangle(0,0,366,140), 2, 370, 366, 140, GraphicsUnit.Pixel);
-
-
-            for (int i = 0; i < 510; i++)
+            if (gashaInfoType == GASHAINFO_TYPE.New)
             {
-                for (int j = 0; j < 366; j++)
+                Bitmap bitmapLeft = new Bitmap(510, 366);
+                Bitmap bitmapRight = new Bitmap(366, 140);
+                Bitmap bitmapResult = new Bitmap(650, 366);
+
+                Graphics graphics = Graphics.FromImage(bitmapLeft);
+                graphics.DrawImage(bitmapOrigin, new Rectangle(0, 0, 510, 366), 0, 0, 510, 366, GraphicsUnit.Pixel);
+
+                Graphics graphics2 = Graphics.FromImage(bitmapRight);
+                graphics2.DrawImage(bitmapOrigin, new Rectangle(0, 0, 366, 140), 2, 370, 366, 140, GraphicsUnit.Pixel);
+
+
+                for (int i = 0; i < 510; i++)
                 {
-                    var pixel = bitmapLeft.GetPixel(i, j);
-                    bitmapResult.SetPixel(i, j, pixel);
+                    for (int j = 0; j < 366; j++)
+                    {
+                        var pixel = bitmapLeft.GetPixel(i, j);
+                        bitmapResult.SetPixel(i, j, pixel);
+                    }
                 }
-            }
 
-            bitmapRight.RotateFlip(RotateFlipType.Rotate270FlipNone);
+                bitmapRight.RotateFlip(RotateFlipType.Rotate270FlipNone);
 
-            for (int i = 0; i < 140; i++)
-            {
-                for (int j = 0; j < 366; j++)
+                for (int i = 0; i < 140; i++)
                 {
-                    var pixel = bitmapRight.GetPixel(i, j);
-                    bitmapResult.SetPixel(i + 510, j, pixel); //todo : magic number...
+                    for (int j = 0; j < 366; j++)
+                    {
+                        var pixel = bitmapRight.GetPixel(i, j);
+                        bitmapResult.SetPixel(i + 510, j, pixel); //todo : magic number...
+                    }
                 }
-            }
 
-            try
-            {
-                bitmapResult.Save(CreateSaveName(path), ImageFormat.Png);
-                bitmapOrigin.Dispose();
-                bitmapLeft.Dispose();
-                bitmapRight.Dispose();
-                bitmapResult.Dispose();
-                graphics.Dispose();
-                graphics2.Dispose();
+                try
+                {
+                    bitmapResult.Save(CreateSaveName(path), ImageFormat.Png);
+                    bitmapOrigin.Dispose();
+                    bitmapLeft.Dispose();
+                    bitmapRight.Dispose();
+                    bitmapResult.Dispose();
+                    graphics.Dispose();
+                    graphics2.Dispose();
+                }
+                catch (Exception)
+                {
+                    return ERROR_TYPE.FileError;
+                }
+                return ERROR_TYPE.Succeed;
             }
-            catch (Exception)
+            else
             {
-                return ERROR_TYPE.FileError;
+                Bitmap bitmapLeft = new Bitmap(510, 324);
+                Bitmap bitmapRight = new Bitmap(324, 66);
+                Bitmap bitmapResult = new Bitmap(576, 324);
+
+                Graphics graphics = Graphics.FromImage(bitmapLeft);
+                graphics.DrawImage(bitmapOrigin, new Rectangle(0, 0, 510, 324), 0, 0, 510, 324, GraphicsUnit.Pixel);
+
+                Graphics graphics2 = Graphics.FromImage(bitmapRight);
+                graphics2.DrawImage(bitmapOrigin, new Rectangle(0, 0, 324, 66), 2, 444, 324, 66, GraphicsUnit.Pixel);
+
+
+                for (int i = 0; i < 510; i++)
+                {
+                    for (int j = 0; j < 324; j++)
+                    {
+                        var pixel = bitmapLeft.GetPixel(i, j);
+                        bitmapResult.SetPixel(i, j, pixel);
+                    }
+                }
+
+                bitmapRight.RotateFlip(RotateFlipType.Rotate270FlipNone);
+
+                for (int i = 0; i < 66; i++)
+                {
+                    for (int j = 0; j < 324; j++)
+                    {
+                        var pixel = bitmapRight.GetPixel(i, j);
+                        bitmapResult.SetPixel(i + 510, j, pixel); //todo : magic number...
+                    }
+                }
+
+                try
+                {
+                    bitmapResult.Save(CreateSaveName(path), ImageFormat.Png);
+                    bitmapOrigin.Dispose();
+                    bitmapLeft.Dispose();
+                    bitmapRight.Dispose();
+                    bitmapResult.Dispose();
+                    graphics.Dispose();
+                    graphics2.Dispose();
+                }
+                catch (Exception)
+                {
+                    return ERROR_TYPE.FileError;
+                }
+                return ERROR_TYPE.Succeed;
             }
-            return ERROR_TYPE.Succeed;
         }
 
         #endregion
