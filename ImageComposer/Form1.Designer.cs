@@ -43,6 +43,7 @@
             this.radioWide = new System.Windows.Forms.RadioButton();
             this.radioOrigin = new System.Windows.Forms.RadioButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.tglWhiteBoard = new System.Windows.Forms.RadioButton();
             this.tglGashaInfo = new System.Windows.Forms.RadioButton();
             this.panelCard = new System.Windows.Forms.Panel();
             this.radioCardBoth = new System.Windows.Forms.RadioButton();
@@ -50,7 +51,6 @@
             this.radioCardOrigin = new System.Windows.Forms.RadioButton();
             this.button1 = new System.Windows.Forms.Button();
             this.labelGashaInfo = new System.Windows.Forms.Label();
-            this.tglWhiteBoard = new System.Windows.Forms.RadioButton();
             this.labelWhiteBoard = new System.Windows.Forms.Label();
             this.panelRareUpright.SuspendLayout();
             this.panelGasha.SuspendLayout();
@@ -225,6 +225,16 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "功能选择";
             // 
+            // tglWhiteBoard
+            // 
+            this.tglWhiteBoard.AutoSize = true;
+            this.tglWhiteBoard.Location = new System.Drawing.Point(13, 149);
+            this.tglWhiteBoard.Name = "tglWhiteBoard";
+            this.tglWhiteBoard.Size = new System.Drawing.Size(83, 16);
+            this.tglWhiteBoard.TabIndex = 4;
+            this.tglWhiteBoard.Text = "白板图提取";
+            this.tglWhiteBoard.UseVisualStyleBackColor = true;
+            // 
             // tglGashaInfo
             // 
             this.tglGashaInfo.AutoSize = true;
@@ -300,16 +310,6 @@
             this.labelGashaInfo.TabIndex = 6;
             this.labelGashaInfo.Text = "需使用分辨率512x512的原图";
             // 
-            // tglWhiteBoard
-            // 
-            this.tglWhiteBoard.AutoSize = true;
-            this.tglWhiteBoard.Location = new System.Drawing.Point(13, 149);
-            this.tglWhiteBoard.Name = "tglWhiteBoard";
-            this.tglWhiteBoard.Size = new System.Drawing.Size(83, 16);
-            this.tglWhiteBoard.TabIndex = 4;
-            this.tglWhiteBoard.Text = "白板图提取";
-            this.tglWhiteBoard.UseVisualStyleBackColor = true;
-            // 
             // labelWhiteBoard
             // 
             this.labelWhiteBoard.AutoSize = true;
@@ -336,7 +336,7 @@
             this.Controls.Add(this.buttonOpenFile);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "Form1";
-            this.Text = "ImageComposer  v1.4";
+            this.Text = "ImageComposer  v1.5";
             this.panelRareUpright.ResumeLayout(false);
             this.panelRareUpright.PerformLayout();
             this.panelGasha.ResumeLayout(false);

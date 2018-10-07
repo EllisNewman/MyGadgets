@@ -631,30 +631,31 @@ namespace ImageComposer
                 return ERROR_TYPE.SizeError;
             }
 
-            Bitmap bitmapLeft = new Bitmap(510, 324);
-            Bitmap bitmapRight = new Bitmap(324, 66);
-            Bitmap bitmapResult = new Bitmap(576, 324);
+            Bitmap bitmapLeft = new Bitmap(510, 366);
+            Bitmap bitmapRight = new Bitmap(366, 140);
+            Bitmap bitmapResult = new Bitmap(650, 366);
 
             Graphics graphics = Graphics.FromImage(bitmapLeft);
-            graphics.DrawImage(bitmapOrigin, new Rectangle(0,0,510,324), 0, 0, 510, 324, GraphicsUnit.Pixel);
+            graphics.DrawImage(bitmapOrigin, new Rectangle(0,0,510,366), 0, 0, 510, 366, GraphicsUnit.Pixel);
 
             Graphics graphics2 = Graphics.FromImage(bitmapRight);
-            graphics2.DrawImage(bitmapOrigin, new Rectangle(0,0,324,66), 2, 444, 324, 66, GraphicsUnit.Pixel);
+            graphics2.DrawImage(bitmapOrigin, new Rectangle(0,0,366,140), 2, 370, 366, 140, GraphicsUnit.Pixel);
 
-            bitmapRight.RotateFlip(RotateFlipType.Rotate270FlipNone);
 
             for (int i = 0; i < 510; i++)
             {
-                for (int j = 0; j < 324; j++)
+                for (int j = 0; j < 366; j++)
                 {
                     var pixel = bitmapLeft.GetPixel(i, j);
                     bitmapResult.SetPixel(i, j, pixel);
                 }
             }
 
-            for (int i = 0; i < 66; i++)
+            bitmapRight.RotateFlip(RotateFlipType.Rotate270FlipNone);
+
+            for (int i = 0; i < 140; i++)
             {
-                for (int j = 0; j < 324; j++)
+                for (int j = 0; j < 366; j++)
                 {
                     var pixel = bitmapRight.GetPixel(i, j);
                     bitmapResult.SetPixel(i + 510, j, pixel); //todo : magic number...
