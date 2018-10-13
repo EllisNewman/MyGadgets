@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Net;
+using System.Threading;
 using System.Web.Script.Serialization;
 
 namespace NeoDownloader
@@ -16,7 +17,9 @@ namespace NeoDownloader
     public partial class GameVersionChange : Form
     {
         private Res cacheVersionInfo;
-
+        private delegate void SetTextCallBack(string text);
+        private Thread checkLatestThread;
+        private Thread checkInputThread;
         public GameVersionChange()
         {
             InitializeComponent();
@@ -26,23 +29,35 @@ namespace NeoDownloader
 
         private void btnLatest_Click(object sender, EventArgs e)
         {
-            labelResult.Text = "正在查询...";
+            if (checkLatestThread == null && checkInputThread == null)
+            {
+                checkLatestThread = new Thread(CheckLatest);
+                checkLatestThread.Start();
+            }
+        }
+
+        private void CheckLatest()
+        {
+            SetResultText("正在查询...");
             string result = GetWebRequest("https://api.matsurihi.me/mltd/v1/version/latest");
 
             if (isResultError(result))
             {
-                labelResult.Text = "查询错误！";
+                SetResultText("查询错误！");
                 return;
             }
-            
+
             JavaScriptSerializer js = new JavaScriptSerializer();
             LatestVersionInfo info = js.Deserialize<LatestVersionInfo>(result);
 
             cacheVersionInfo = info.res;
-            labelResult.Text = "更新成功！" +
+            SetResultText("更新成功！" +
                                "\n现在的最新版本是：" + info.res.version +
-                               "\n更新时间是：" + info.res.updateTime;
+                               "\n更新时间是：" + info.res.updateTime);
+
+            checkLatestThread = null;
         }
+
 
         private void btnCheck_Click(object sender, EventArgs e)
         {
@@ -50,12 +65,22 @@ namespace NeoDownloader
             if (input == "")
                 return;
 
-            labelResult.Text = "正在查询...";
+            if (checkLatestThread == null && checkInputThread == null)
+            {
+                checkInputThread = new Thread((ob) => {CheckInput(ob as string);});
+                checkInputThread.Start(input);
+            }
+
+        }
+
+        private void CheckInput(string input)
+        {
+            SetResultText("正在查询...");
             string result = GetWebRequest("https://api.matsurihi.me/mltd/v1/version/assets/" + input);
 
             if (isResultError(result))
             {
-                labelResult.Text = "查询错误！\n不存在该版本号";
+                SetResultText("查询错误！\n不存在该版本号");
                 return;
             }
 
@@ -63,9 +88,11 @@ namespace NeoDownloader
             Res info = js.Deserialize<Res>(result);
 
             cacheVersionInfo = info;
-            labelResult.Text = "查询成功！" +
+            SetResultText("查询成功！" +
                                "\n查询版本是：" + info.version +
-                               "\n更新时间是：" + info.updateTime;
+                               "\n更新时间是：" + info.updateTime);
+
+            checkInputThread = null;
         }
 
         private void btnFinish_Click(object sender, EventArgs e)
@@ -86,7 +113,20 @@ namespace NeoDownloader
 
             Define.IndexDic.Clear();
             Close();
-            
+
+        }
+
+        void SetResultText(string text)
+        {
+            if (this.labelResult.InvokeRequired)
+            {
+                SetTextCallBack call = new SetTextCallBack(SetResultText); // 来自MSDN文档，递归思想
+                this.Invoke(call, new object[] { text });
+            }
+            else
+            {
+                this.labelResult.Text = text;
+            }
         }
 
         private bool isResultError(string result)
@@ -105,7 +145,7 @@ namespace NeoDownloader
             return true;
         }
 
-        private static string GetWebRequest(string url)
+        private string GetWebRequest(string url)
         {
             string strResult = "";
 
@@ -125,6 +165,8 @@ namespace NeoDownloader
             }
             catch (WebException)
             {
+                checkInputThread = null;
+                checkLatestThread = null;
                 MessageBox.Show("ERROR !\n查询失败。网络出现错误，或者查询的对象不存在。"
                     , "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -132,6 +174,7 @@ namespace NeoDownloader
             return strResult;
         }
 
+        #region json解析用
         public class App
         {
             public string version { get; set; }
@@ -160,5 +203,9 @@ namespace NeoDownloader
             public string updateTime { get; set; }
             public string indexName { get; set; }
         }
+
+        #endregion
+
+
     }
 }

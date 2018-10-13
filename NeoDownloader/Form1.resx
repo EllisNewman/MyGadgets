@@ -120,6 +120,12 @@
   <data name="label4.Text" xml:space="preserve">
     <value>001har, 002chi, 003mik, 004yuk, 005yay, 006mak, 007ior, 008tak, 009rit, 010azu, 011ami, 012mam, 013hib, 014mir, 015siz, 016tsu, 017kth, 018ele, 019min, 020meg, 021mat, 022ser, 023aka, 024ann, 025roc, 026yur, 027say, 028ari, 029umi, 030iku, 031tom, 032emi, 033sih, 034ayu, 035hin, 036kan, 037nao, 038chz, 039kon, 040tam, 041fuk, 042miy, 043nor, 044miz, 045kar, 046rio, 047sub, 048rei, 049mom, 050jul, 051tmg, 052kao.</value>
   </data>
+  <metadata name="IndexDownloadWorker.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <metadata name="AssetDowloadWorker.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>205, 17</value>
+  </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

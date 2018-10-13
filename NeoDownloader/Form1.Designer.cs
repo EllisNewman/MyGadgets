@@ -55,6 +55,10 @@
             this.labelDownLoadInfo = new System.Windows.Forms.Label();
             this.btnOpenDownloadPath = new System.Windows.Forms.Button();
             this.labelVersionTime = new System.Windows.Forms.Label();
+            this.IndexDownloadWorker = new System.ComponentModel.BackgroundWorker();
+            this.progressDownload = new System.Windows.Forms.ProgressBar();
+            this.AssetDowloadWorker = new System.ComponentModel.BackgroundWorker();
+            this.labelMultiProgress = new System.Windows.Forms.Label();
             this.groupMain.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -288,9 +292,9 @@
             // labelDownLoadInfo
             // 
             this.labelDownLoadInfo.Font = new System.Drawing.Font("宋体", 11F);
-            this.labelDownLoadInfo.Location = new System.Drawing.Point(45, 528);
+            this.labelDownLoadInfo.Location = new System.Drawing.Point(45, 534);
             this.labelDownLoadInfo.Name = "labelDownLoadInfo";
-            this.labelDownLoadInfo.Size = new System.Drawing.Size(722, 66);
+            this.labelDownLoadInfo.Size = new System.Drawing.Size(722, 30);
             this.labelDownLoadInfo.TabIndex = 9;
             this.labelDownLoadInfo.Text = "label2";
             // 
@@ -313,12 +317,46 @@
             this.labelVersionTime.TabIndex = 12;
             this.labelVersionTime.Text = "label10";
             // 
+            // IndexDownloadWorker
+            // 
+            this.IndexDownloadWorker.WorkerReportsProgress = true;
+            this.IndexDownloadWorker.WorkerSupportsCancellation = true;
+            this.IndexDownloadWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.IndexDownloadWorker_DoWork);
+            this.IndexDownloadWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.IndexDownloadWorker_ProgressChanged);
+            this.IndexDownloadWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.IndexDownloadWorker_RunWorkerCompleted);
+            // 
+            // progressDownload
+            // 
+            this.progressDownload.Location = new System.Drawing.Point(44, 600);
+            this.progressDownload.Name = "progressDownload";
+            this.progressDownload.Size = new System.Drawing.Size(878, 23);
+            this.progressDownload.TabIndex = 13;
+            // 
+            // AssetDowloadWorker
+            // 
+            this.AssetDowloadWorker.WorkerReportsProgress = true;
+            this.AssetDowloadWorker.WorkerSupportsCancellation = true;
+            this.AssetDowloadWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.AssetDowloadWorker_DoWork);
+            this.AssetDowloadWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.AssetDowloadWorker_ProgressChanged);
+            this.AssetDowloadWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.AssetDowloadWorker_RunWorkerCompleted);
+            // 
+            // labelMultiProgress
+            // 
+            this.labelMultiProgress.Font = new System.Drawing.Font("宋体", 11F);
+            this.labelMultiProgress.Location = new System.Drawing.Point(45, 564);
+            this.labelMultiProgress.Name = "labelMultiProgress";
+            this.labelMultiProgress.Size = new System.Drawing.Size(734, 23);
+            this.labelMultiProgress.TabIndex = 14;
+            this.labelMultiProgress.Text = "label10";
+            // 
             // Form1
             // 
             this.AcceptButton = this.btnSearch;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(943, 613);
+            this.ClientSize = new System.Drawing.Size(943, 635);
+            this.Controls.Add(this.labelMultiProgress);
+            this.Controls.Add(this.progressDownload);
             this.Controls.Add(this.labelVersionTime);
             this.Controls.Add(this.btnOpenDownloadPath);
             this.Controls.Add(this.btnAssetDownLoad);
@@ -334,7 +372,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
-            this.Text = "NeoDownloader a0.2";
+            this.Text = "NeoDownloader a0.3";
             this.groupMain.ResumeLayout(false);
             this.groupMain.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -372,6 +410,10 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label labelVersionTime;
+        private System.ComponentModel.BackgroundWorker IndexDownloadWorker;
+        private System.Windows.Forms.ProgressBar progressDownload;
+        private System.ComponentModel.BackgroundWorker AssetDowloadWorker;
+        private System.Windows.Forms.Label labelMultiProgress;
     }
 }
 

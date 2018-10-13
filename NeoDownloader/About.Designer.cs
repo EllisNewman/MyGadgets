@@ -71,7 +71,7 @@
             this.groupBox1.Size = new System.Drawing.Size(610, 188);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "使用说明：";
+            this.groupBox1.Text = "使用说明";
             // 
             // label6
             // 
@@ -133,7 +133,7 @@
             this.groupBox2.Size = new System.Drawing.Size(610, 186);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "关于：";
+            this.groupBox2.Text = "关于";
             // 
             // label12
             // 
@@ -231,7 +231,7 @@
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "About";
-            this.Text = "About";
+            this.Text = "关于";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
