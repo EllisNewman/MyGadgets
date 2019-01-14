@@ -21,7 +21,7 @@ namespace NeoDownloader
             if (!File.Exists(Define.LocalPath + @"\urls.json"))
             {
                 StreamWriter sw = new StreamWriter(Define.LocalPath + @"\urls.json");
-                sw.Write("[\n\t\"ht" + "tps://t" + "d-as" + "sets.bn7" + "65.c" + "om/28200/pro" + "duction/2017.3/Android/f3424f4ce9307dee957f5407ac304cf5cd8828ac.data\"\n]");
+                sw.Write("[\n\t\"" + Define.SourceUrl + "46800/pro" + "duction/2017.3/Android/b1cddebec761f474fb499f43896acefaad877404.data\"\n]");
                 sw.Close();
 
                 MessageBox.Show("初次使用该程序时，需要先在主界面中点击“版本号切换”获取最新版本号。详细内容可在主界面中点击右上角“使用说明”查看。" +
@@ -73,7 +73,7 @@ namespace NeoDownloader
             sb.Append("[\n\t\"");
             foreach (var url in newDic)
             {
-                sb.Append("ht" + "tps://t" + "d-ass" + "ets.b" + "n" + "7" + "65.c" + "om/" + url.Key + "/production/" + (url.Key > 14575 ? 2017.3 : 5.6) +
+                sb.Append(Define.SourceUrl + url.Key + "/production/" + Define.GetUnityVersion(url.Key) +
                           "/Android/" + url.Value + "\"");
 
                 if (url.Key != newDic.Last().Key)
@@ -109,7 +109,7 @@ namespace NeoDownloader
 
             foreach (MsgPack item in msgpack.children)
             {
-                if (item.children.Count < 3) // 如果小于3则说明发生错误。可能是文件本身在下载过程中发生缺失。
+                if (item.children.Count < 3) // 如果小于3则说明发生错误，需重新下载。一种常见原因是文件本身在下载过程中发生缺失。
                     return false;
 
                 IndexInfo info = new IndexInfo

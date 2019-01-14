@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -23,6 +21,7 @@ namespace NeoDownloader
             labelDownLoadInfo.Text = "";
             labelVersionTime.Text = "";
             labelMultiProgress.Text = "";
+            btnCancelDownload.Visible = false;
 
             if (Define.VersionDic.Count > 0) // 每次启动时自动打开最新版本
             {
@@ -52,6 +51,9 @@ namespace NeoDownloader
                 MessageBox.Show("正在下载文件，不能进行其他操作。", "", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                 return;
             }
+
+            btnAssetDownLoad.Visible = false;
+            btnCancelDownload.Visible = true;
 
             labelDownLoadInfo.Text = "正在下载索引文件，这需要数秒至数分钟的时间...期间请勿退出程序";
             IndexDownloadWorker.RunWorkerAsync();
@@ -96,6 +98,19 @@ namespace NeoDownloader
             aboutBox.Show();
         }
 
+        private void btnCancelDownload_Click(object sender, EventArgs e)
+        {
+            if (IndexDownloadWorker.IsBusy)
+            {
+                IndexDownloadWorker.CancelAsync();
+            } 
+            
+            if (AssetDowloadWorker.IsBusy)
+            {
+                AssetDowloadWorker.CancelAsync();
+            }
+        }
+
         private void btnDownLoad_Click(object sender, EventArgs e)
         {
             if (IndexDownloadWorker.IsBusy || AssetDowloadWorker.IsBusy)
@@ -106,10 +121,13 @@ namespace NeoDownloader
 
             if (listBoxResult.SelectedItems.Count < 1)
             {
-                labelDownLoadInfo.Text = "尚未选择要下载的资源。通过检索关键字或版本对比功能展示资源列表后，" +
-                                         "点击选择某项或某几项资源，再从此处开始下载。";
+                labelDownLoadInfo.Text = "尚未选择要下载的资源。\n通过检索关键字或版本对比功能展示资源列表，" +
+                                         "点击选择某项或多项资源，再从此处开始下载。";
                 return;
             }
+
+            btnAssetDownLoad.Visible = false;
+            btnCancelDownload.Visible = true;
 
             StringBuilder sb = new StringBuilder("开始下载：");
             List<string> selectedNames = new List<string>();
@@ -232,6 +250,7 @@ namespace NeoDownloader
             }
         }
 
+
         #endregion
 
         #region UI操作
@@ -267,18 +286,23 @@ namespace NeoDownloader
             {
                 if (!FileManager.ReadIndexFile(indexPath))
                 {
-                    MessageBox.Show("索引文件读取发生异常。\n\n该错误由当前版本的索引文件引起，可能是文件下载过程中由于网络" +
-                                    "原因导致文件损坏而产生。\n重新下载索引文件或许能解决该问题。如果该问题依然存在，请联系开发者。",
-                        "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //弹出对话框导致原窗口失焦，文件损坏时易产生无限循环弹窗的bug，因此先弃用该对话框。
+                    //MessageBox.Show("索引文件读取发生异常。\n\n该错误由当前版本的索引文件引起，可能是文件下载过程中由于网络" +
+                    //                "原因导致文件损坏而产生。\n重新下载索引文件或许能解决该问题。如果该问题依然存在，请联系开发者。",
+                    //    "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    labelDownLoadInfo.Text = "索引文件读取发生异常。可能是读取过程出错，或在下载过程中损坏。\n" +
+                                             "尝试重启程序或重新下载索引文件。";
+
                     return;
                 }
                 labelIndex.Text = "就绪";
-                labelDownLoadInfo.Text = "已成功打开该版本所需的索引文件。";
+                labelDownLoadInfo.Text = "索引文件就绪。";
             }
             else
             {
-                labelIndex.Text = "未下载";
-                labelDownLoadInfo.Text = "每个版本需要对应的索引文件以查找资源。下载索引文件后才能继续使用。";
+                labelIndex.Text = "未就绪";
+                labelDownLoadInfo.Text = "每个版本需要对应的索引文件以查找资源。\n点击上方“下载索引文件”按钮以获取。";
             }
         }
 
@@ -317,13 +341,12 @@ namespace NeoDownloader
 
         private void IndexDownloadWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            string url = "ht" + "tps:/" + "/td-a" + "ssets.b" + "n" + "76" + "5.com/" + Define.GameVersion + "/production/" + (Define.GameVersion > 14580 ? 2017.3 : 5.6) + "/Android/" + Define.IndexName;
             ServicePointManager.ServerCertificateValidationCallback += (s, cert, chain, sslPolicyErrors) => true;
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(Define.GetIndexUrl());
             HttpWebResponse response = request.GetResponse() as HttpWebResponse;
             Stream responseStream = response.GetResponseStream();
-            Stream stream = new FileStream(Define.LocalPath + Define.IndexPath + "/" + Define.IndexName, FileMode.Create);
+            Stream fileStream = new FileStream(Define.GetFullIndexPath(), FileMode.Create);
 
             long countSize = 0;
             long originSize = response.ContentLength / 100;
@@ -332,7 +355,13 @@ namespace NeoDownloader
 
             while (size > 0)
             {
-                stream.Write(bArr, 0, size);
+                if (IndexDownloadWorker.CancellationPending)
+                {
+                    e.Cancel = true;
+                    break;
+                }
+
+                fileStream.Write(bArr, 0, size);
                 size = responseStream.Read(bArr, 0, bArr.Length);
 
                 countSize = countSize + size;
@@ -340,10 +369,16 @@ namespace NeoDownloader
                 IndexDownloadWorker.ReportProgress((int)result);
             }
 
+            fileStream.Close();
+            responseStream.Close();
             IndexDownloadWorker.ReportProgress(100);
 
-            stream.Close();
-            responseStream.Close();
+            if (e.Cancel)
+            {
+                IndexDownloadWorker.ReportProgress(0);
+                File.Delete(Define.GetFullIndexPath());
+            }
+
         }
 
         private void IndexDownloadWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
@@ -353,19 +388,25 @@ namespace NeoDownloader
 
         private void IndexDownloadWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
+            btnAssetDownLoad.Visible = true;
+            btnCancelDownload.Visible = false;
+
             if (e.Error != null)
             {
                 MessageBox.Show(e.Error.Message);
             }
-            else if(e.Cancelled)
-            { }
-            else 
+            else if (e.Cancelled)
             {
-                MessageBox.Show("SUCCEED !\n索引文件下载完成。" , "", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                labelDownLoadInfo.Text = "";
-                ResetPanel();
-                progressDownload.Value = 0;
+                MessageBox.Show("CANCELLED. \n取消索引文件下载。", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+            else
+            {
+                MessageBox.Show("SUCCEED !\n索引文件下载完成。", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+
+            labelDownLoadInfo.Text = "";
+            ResetPanel();
+            progressDownload.Value = 0;
         }
 
 
@@ -380,48 +421,65 @@ namespace NeoDownloader
             }
             int total = nameList.Count;
             int progress = 0;
+            long currntSize = 0;
+            long totalSize = 0;
             assetProgress = total > 1 ? "已完成：0/" + total : "";
 
             foreach (var name in nameList)
             {
-                AssetDowloadWorker.ReportProgress(0);
-                string url = "ht" + "tps:/" + "/td-a" + "ssets.b" + "n" + "76" + "5.com/" + Define.GameVersion + "/production/" + (Define.GameVersion > 14580 ? 2017.3 : 5.6) + "/Android/" + Define.IndexDic[name].url;
+                totalSize += long.Parse(Define.IndexDic[name].size);
+            }
+            totalSize = totalSize / 100;
+
+            foreach (var name in nameList)
+            {
+                if (e.Cancel)
+                {
+                    return;
+                }
+
+                string fullPathName = Define.LocalPath + Define.AssetPath + "/" + Define.GameVersion + "/" + name;
+                string url = Define.GetAssetUrl(name);
+                
                 ServicePointManager.ServerCertificateValidationCallback += (s, cert, chain, sslPolicyErrors) => true;
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
-                try
-                {
-                    HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
-                    HttpWebResponse response = request.GetResponse() as HttpWebResponse;
-                    Stream responseStream = response.GetResponseStream();
-                    Stream stream = new FileStream(Define.LocalPath + Define.AssetPath + "/" + Define.GameVersion + "/" + name, FileMode.Create);
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+                HttpWebResponse response = request.GetResponse() as HttpWebResponse;
+                Stream responseStream = response.GetResponseStream();
+                Stream stream = new FileStream(fullPathName, FileMode.Create);
                     
-                    long countSize = 0;
-                    long originSize = response.ContentLength / 100;
-                    byte[] bArr = new byte[10000];
-                    int size = responseStream.Read(bArr, 0, bArr.Length);
+                byte[] bArr = new byte[10000];
+                int size = responseStream.Read(bArr, 0, bArr.Length);
 
-                    while (size > 0)
+                while (size > 0)
+                {
+                    if (AssetDowloadWorker.CancellationPending)
                     {
-                        stream.Write(bArr, 0, size);
-                        size = responseStream.Read(bArr, 0, bArr.Length);
-
-                        countSize = countSize + size;
-                        long result = countSize / originSize;
-                        AssetDowloadWorker.ReportProgress((int)result);
+                        e.Cancel = true;
+                        break;
                     }
 
-                    stream.Close();
-                    responseStream.Close();
+                    stream.Write(bArr, 0, size);
+                    size = responseStream.Read(bArr, 0, bArr.Length);
 
-                    progress = progress + 1;
-                    assetProgress = total > 1 ? "已完成："+progress+"/"+total : "";
-                    AssetDowloadWorker.ReportProgress(100);
-
+                    currntSize = currntSize + size;
+                    long result = currntSize / totalSize;
+                    AssetDowloadWorker.ReportProgress((int)result);
                 }
-                catch (Exception)
+
+                stream.Dispose();
+                responseStream.Dispose();
+
+                if (e.Cancel)
                 {
-                    MessageBox.Show("ERROR !\n下载失败。网络出现错误，或者访问的版本号不允许下载索引文件。"
-                        , "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    File.Delete(fullPathName); // 下载到一半的文件无法使用，需作删除处理
+                    assetProgress = "";
+                    AssetDowloadWorker.ReportProgress(0);
+                }
+                else
+                {
+                    progress = progress + 1;
+                    assetProgress = total > 1 ? "已完成：" + progress + "/" + total : "";
                 }
             }
         }
@@ -437,20 +495,26 @@ namespace NeoDownloader
 
         private void AssetDowloadWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
+            btnAssetDownLoad.Visible = true;
+            btnCancelDownload.Visible = false;
+
             if (e.Error != null)
             {
                 MessageBox.Show(e.Error.Message);
             }
             else if (e.Cancelled)
-            { }
+            {
+                labelDownLoadInfo.Text = "取消文件下载。";
+            }
             else
             {
                 MessageBox.Show("SUCCEED !\n所选文件下载完成。", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 labelDownLoadInfo.Text = "下载完成！";
-                labelMultiProgress.Text = "";
-                progressDownload.Value = 0;
             }
+            labelMultiProgress.Text = "";
+            progressDownload.Value = 0;
         }
+
 
     }
 }

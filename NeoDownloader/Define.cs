@@ -21,12 +21,53 @@ namespace NeoDownloader
         public static Dictionary<string, IndexInfo> IndexDic = new Dictionary<string, IndexInfo>();
         public static Dictionary<string, IndexInfo> IndexDicCache = new Dictionary<string, IndexInfo>(); // 目前仅用于版本对比
 
-        public static string GetTargetUrl(string itemName)
+
+        // todo : 将来如果土豆更新了Unity版本，则需要修改下列几个UnityVersion函数以进行适配
+        public static double GetUnityVersion()
         {
-            return SourceUrl + GameVersion + "/production/" + UnityVersion + "/Android/" + itemName;
+            return (GameVersion > 14580 ? 2017.3 : 5.6);
         }
-        
+
+        public static double GetUnityVersion(int gameVer)
+        {
+            return (gameVer > 14580 ? 2017.3 : 5.6);
+        }
+
+        public static double GetUnityVersion(double gameVer)
+        {
+            return (gameVer > 14580 ? 2017.3 : 5.6);
+        }
+
+        /// <summary>
+        /// 从IndexDic中查找输入名称对应的资源文件，获取其下载链接
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public static string GetAssetUrl(string name)
+        {
+            if (IndexDic.ContainsKey(name))
+            {
+                return SourceUrl + GameVersion + "/production/" + GetUnityVersion() + "/Android/" + IndexDic[name].url;
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// 获取当前版本索引文件的下载链接
+        /// </summary>
+        /// <returns></returns>
+        public static string GetIndexUrl()
+        {
+           return SourceUrl + GameVersion + "/production/" + GetUnityVersion() + "/Android/" + IndexName;
+        }
+
+        public static string GetFullIndexPath()
+        {
+            return LocalPath + IndexPath + "/" + IndexName;
+        }
     }
+
+    
 
     /// <summary>
     /// 资源索引中单个资源文件的相关信息

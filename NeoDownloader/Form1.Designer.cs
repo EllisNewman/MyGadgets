@@ -59,6 +59,7 @@
             this.progressDownload = new System.Windows.Forms.ProgressBar();
             this.AssetDowloadWorker = new System.ComponentModel.BackgroundWorker();
             this.labelMultiProgress = new System.Windows.Forms.Label();
+            this.btnCancelDownload = new System.Windows.Forms.Button();
             this.groupMain.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -349,12 +350,23 @@
             this.labelMultiProgress.TabIndex = 14;
             this.labelMultiProgress.Text = "label10";
             // 
+            // btnCancelDownload
+            // 
+            this.btnCancelDownload.Location = new System.Drawing.Point(798, 552);
+            this.btnCancelDownload.Name = "btnCancelDownload";
+            this.btnCancelDownload.Size = new System.Drawing.Size(124, 42);
+            this.btnCancelDownload.TabIndex = 15;
+            this.btnCancelDownload.Text = "取消";
+            this.btnCancelDownload.UseVisualStyleBackColor = true;
+            this.btnCancelDownload.Click += new System.EventHandler(this.btnCancelDownload_Click);
+            // 
             // Form1
             // 
             this.AcceptButton = this.btnSearch;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(943, 635);
+            this.Controls.Add(this.btnCancelDownload);
             this.Controls.Add(this.labelMultiProgress);
             this.Controls.Add(this.progressDownload);
             this.Controls.Add(this.labelVersionTime);
@@ -372,7 +384,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
-            this.Text = "NeoDownloader a0.3";
+            this.Text = "NeoDownloader a0.4";
             this.groupMain.ResumeLayout(false);
             this.groupMain.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -414,6 +426,7 @@
         private System.Windows.Forms.ProgressBar progressDownload;
         private System.ComponentModel.BackgroundWorker AssetDowloadWorker;
         private System.Windows.Forms.Label labelMultiProgress;
+        private System.Windows.Forms.Button btnCancelDownload;
     }
 }
 
