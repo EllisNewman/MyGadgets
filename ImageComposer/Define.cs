@@ -22,6 +22,10 @@ namespace ImageComposer
         /// </summary>
         SSRUpright,
         /// <summary>
+        /// 活动界面，支持完整图拼接
+        /// </summary>
+        Event,
+        /// <summary>
         /// 卡池界面，支持长图拼接
         /// </summary>
         Gasha,
@@ -71,6 +75,91 @@ namespace ImageComposer
         /// 两者都要
         /// </summary>
         Both
+    }
+
+    /// <summary>
+    /// 活动界面图拼接时的选项
+    /// </summary>
+    public enum EVENT_TYPE
+    {
+        /// <summary>
+        /// 完整大图
+        /// </summary>
+        Full,
+        /// <summary>
+        /// 完整大图(带有LOGO)
+        /// </summary>
+        Full_With_LogoAll,
+        /// <summary>
+        /// 全都要
+        /// </summary>
+        ALL
+    }
+
+    /// <summary>
+    /// 创建文件名类型
+    /// </summary>
+    public enum CREATEFILENAME_TYPE
+    {
+        /// <summary>
+        /// - Origin
+        /// </summary>
+        Origin,
+        /// <summary>
+        /// - EventWide
+        /// </summary>
+        EventWide,
+        /// <summary>
+        ///  - EventFull
+        /// </summary>
+        EventFull,
+        /// <summary>
+        ///  - EventFull_With_Logo1
+        /// </summary>
+        EventFull_With_Logo1,
+        /// <summary>
+        ///  - EventFull_With_Logo2
+        /// </summary>
+        EventFull_With_Logo2,
+        /// <summary>
+        ///  - EventFull_With_LogoAll
+        /// </summary>
+        EventFull_With_LogoAll,
+    }
+
+    /// <summary>
+    /// 获取文件名类型
+    /// </summary>
+    public enum GETFILENAME_TYPE
+    {
+        /// <summary>
+        /// _x
+        /// </summary>
+        x,
+        /// <summary>
+        /// _x0
+        /// </summary>
+        x0,
+        /// <summary>
+        /// _x1
+        /// </summary>
+        x1,
+        /// <summary>
+        /// _x2
+        /// </summary>
+        x2,
+        /// <summary>
+        /// _logo_01
+        /// </summary>
+        logo_01,
+        /// <summary>
+        /// _logo_02
+        /// </summary>
+        logo_02,
+        /// <summary>
+        /// logo_position
+        /// </summary>
+        logo_position
     }
 
     /// <summary>
@@ -129,4 +218,5 @@ namespace ImageComposer
         /// </summary>
         Unknown
     }
+
 }

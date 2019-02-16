@@ -34,19 +34,20 @@
             this.tglGasha = new System.Windows.Forms.RadioButton();
             this.labelDescription = new System.Windows.Forms.Label();
             this.panelRareUpright = new System.Windows.Forms.Panel();
+            this.radioBoth = new System.Windows.Forms.RadioButton();
+            this.radioWithFrame = new System.Windows.Forms.RadioButton();
+            this.radioNoFrame = new System.Windows.Forms.RadioButton();
             this.panelGashaInfo = new System.Windows.Forms.Panel();
             this.labelGashaInfoHint = new System.Windows.Forms.Label();
             this.radioOldReso = new System.Windows.Forms.RadioButton();
             this.radioNewReso = new System.Windows.Forms.RadioButton();
-            this.radioBoth = new System.Windows.Forms.RadioButton();
-            this.radioWithFrame = new System.Windows.Forms.RadioButton();
-            this.radioNoFrame = new System.Windows.Forms.RadioButton();
             this.labelProcessing = new System.Windows.Forms.Label();
             this.panelGasha = new System.Windows.Forms.Panel();
             this.radioGashaBoth = new System.Windows.Forms.RadioButton();
             this.radioWide = new System.Windows.Forms.RadioButton();
             this.radioOrigin = new System.Windows.Forms.RadioButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.tglEvent = new System.Windows.Forms.RadioButton();
             this.tglWhiteBoard = new System.Windows.Forms.RadioButton();
             this.tglGashaInfo = new System.Windows.Forms.RadioButton();
             this.panelCard = new System.Windows.Forms.Panel();
@@ -55,18 +56,24 @@
             this.radioCardOrigin = new System.Windows.Forms.RadioButton();
             this.button1 = new System.Windows.Forms.Button();
             this.labelWhiteBoard = new System.Windows.Forms.Label();
+            this.panelEvent = new System.Windows.Forms.Panel();
+            this.radioEventBoth = new System.Windows.Forms.RadioButton();
+            this.radioEventFullWithLogo = new System.Windows.Forms.RadioButton();
+            this.radioEventFull = new System.Windows.Forms.RadioButton();
             this.panelRareUpright.SuspendLayout();
             this.panelGashaInfo.SuspendLayout();
             this.panelGasha.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panelCard.SuspendLayout();
+            this.panelEvent.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonOpenFile
             // 
-            this.buttonOpenFile.Location = new System.Drawing.Point(457, 244);
+            this.buttonOpenFile.Location = new System.Drawing.Point(612, 347);
+            this.buttonOpenFile.Margin = new System.Windows.Forms.Padding(4);
             this.buttonOpenFile.Name = "buttonOpenFile";
-            this.buttonOpenFile.Size = new System.Drawing.Size(138, 51);
+            this.buttonOpenFile.Size = new System.Drawing.Size(184, 64);
             this.buttonOpenFile.TabIndex = 0;
             this.buttonOpenFile.Text = "打开文件";
             this.buttonOpenFile.UseVisualStyleBackColor = true;
@@ -76,9 +83,10 @@
             // 
             this.tglRareWide.AutoSize = true;
             this.tglRareWide.Checked = true;
-            this.tglRareWide.Location = new System.Drawing.Point(13, 26);
+            this.tglRareWide.Location = new System.Drawing.Point(18, 35);
+            this.tglRareWide.Margin = new System.Windows.Forms.Padding(4);
             this.tglRareWide.Name = "tglRareWide";
-            this.tglRareWide.Size = new System.Drawing.Size(143, 16);
+            this.tglRareWide.Size = new System.Drawing.Size(180, 19);
             this.tglRareWide.TabIndex = 1;
             this.tglRareWide.TabStop = true;
             this.tglRareWide.Text = "SSR卡面 横版大图合成";
@@ -88,9 +96,10 @@
             // tglRareUpright
             // 
             this.tglRareUpright.AutoSize = true;
-            this.tglRareUpright.Location = new System.Drawing.Point(13, 97);
+            this.tglRareUpright.Location = new System.Drawing.Point(18, 156);
+            this.tglRareUpright.Margin = new System.Windows.Forms.Padding(4);
             this.tglRareUpright.Name = "tglRareUpright";
-            this.tglRareUpright.Size = new System.Drawing.Size(143, 16);
+            this.tglRareUpright.Size = new System.Drawing.Size(180, 19);
             this.tglRareUpright.TabIndex = 2;
             this.tglRareUpright.Text = "SSR卡面 竖版小图合成";
             this.tglRareUpright.UseVisualStyleBackColor = true;
@@ -99,9 +108,10 @@
             // tglGasha
             // 
             this.tglGasha.AutoSize = true;
-            this.tglGasha.Location = new System.Drawing.Point(13, 61);
+            this.tglGasha.Location = new System.Drawing.Point(17, 76);
+            this.tglGasha.Margin = new System.Windows.Forms.Padding(4);
             this.tglGasha.Name = "tglGasha";
-            this.tglGasha.Size = new System.Drawing.Size(149, 16);
+            this.tglGasha.Size = new System.Drawing.Size(186, 19);
             this.tglGasha.TabIndex = 3;
             this.tglGasha.Text = "卡池界面 横版图像合成";
             this.tglGasha.UseVisualStyleBackColor = true;
@@ -109,9 +119,10 @@
             // 
             // labelDescription
             // 
-            this.labelDescription.Location = new System.Drawing.Point(23, 30);
+            this.labelDescription.Location = new System.Drawing.Point(31, 38);
+            this.labelDescription.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelDescription.Name = "labelDescription";
-            this.labelDescription.Size = new System.Drawing.Size(317, 27);
+            this.labelDescription.Size = new System.Drawing.Size(423, 34);
             this.labelDescription.TabIndex = 5;
             this.labelDescription.Text = "用于将某种形式的图片变成另一种形式。";
             // 
@@ -120,61 +131,20 @@
             this.panelRareUpright.Controls.Add(this.radioBoth);
             this.panelRareUpright.Controls.Add(this.radioWithFrame);
             this.panelRareUpright.Controls.Add(this.radioNoFrame);
-            this.panelRareUpright.Location = new System.Drawing.Point(208, 157);
+            this.panelRareUpright.Location = new System.Drawing.Point(275, 227);
+            this.panelRareUpright.Margin = new System.Windows.Forms.Padding(4);
             this.panelRareUpright.Name = "panelRareUpright";
-            this.panelRareUpright.Size = new System.Drawing.Size(379, 25);
+            this.panelRareUpright.Size = new System.Drawing.Size(505, 31);
             this.panelRareUpright.TabIndex = 7;
-            // 
-            // panelGashaInfo
-            // 
-            this.panelGashaInfo.Controls.Add(this.labelGashaInfoHint);
-            this.panelGashaInfo.Controls.Add(this.radioOldReso);
-            this.panelGashaInfo.Controls.Add(this.radioNewReso);
-            this.panelGashaInfo.Location = new System.Drawing.Point(207, 193);
-            this.panelGashaInfo.Name = "panelGashaInfo";
-            this.panelGashaInfo.Size = new System.Drawing.Size(380, 27);
-            this.panelGashaInfo.TabIndex = 14;
-            // 
-            // labelGashaInfoHint
-            // 
-            this.labelGashaInfoHint.AutoSize = true;
-            this.labelGashaInfoHint.Location = new System.Drawing.Point(237, 5);
-            this.labelGashaInfoHint.Name = "labelGashaInfoHint";
-            this.labelGashaInfoHint.Size = new System.Drawing.Size(101, 12);
-            this.labelGashaInfoHint.TabIndex = 2;
-            this.labelGashaInfoHint.Text = "注：新版自tb02起";
-            // 
-            // radioOldReso
-            // 
-            this.radioOldReso.AutoSize = true;
-            this.radioOldReso.Location = new System.Drawing.Point(122, 3);
-            this.radioOldReso.Name = "radioOldReso";
-            this.radioOldReso.Size = new System.Drawing.Size(95, 16);
-            this.radioOldReso.TabIndex = 1;
-            this.radioOldReso.Text = "低分辨率旧版";
-            this.radioOldReso.UseVisualStyleBackColor = true;
-            this.radioOldReso.CheckedChanged += new System.EventHandler(this.GashaInfoChanged);
-            // 
-            // radioNewReso
-            // 
-            this.radioNewReso.AutoSize = true;
-            this.radioNewReso.Checked = true;
-            this.radioNewReso.Location = new System.Drawing.Point(3, 3);
-            this.radioNewReso.Name = "radioNewReso";
-            this.radioNewReso.Size = new System.Drawing.Size(95, 16);
-            this.radioNewReso.TabIndex = 0;
-            this.radioNewReso.TabStop = true;
-            this.radioNewReso.Text = "高分辨率新版";
-            this.radioNewReso.UseVisualStyleBackColor = true;
-            this.radioNewReso.CheckedChanged += new System.EventHandler(this.GashaInfoChanged);
             // 
             // radioBoth
             // 
             this.radioBoth.AutoSize = true;
             this.radioBoth.Checked = true;
-            this.radioBoth.Location = new System.Drawing.Point(282, 3);
+            this.radioBoth.Location = new System.Drawing.Point(376, 4);
+            this.radioBoth.Margin = new System.Windows.Forms.Padding(4);
             this.radioBoth.Name = "radioBoth";
-            this.radioBoth.Size = new System.Drawing.Size(83, 16);
+            this.radioBoth.Size = new System.Drawing.Size(103, 19);
             this.radioBoth.TabIndex = 0;
             this.radioBoth.TabStop = true;
             this.radioBoth.Text = "我全都要！";
@@ -184,9 +154,10 @@
             // radioWithFrame
             // 
             this.radioWithFrame.AutoSize = true;
-            this.radioWithFrame.Location = new System.Drawing.Point(121, 3);
+            this.radioWithFrame.Location = new System.Drawing.Point(161, 4);
+            this.radioWithFrame.Margin = new System.Windows.Forms.Padding(4);
             this.radioWithFrame.Name = "radioWithFrame";
-            this.radioWithFrame.Size = new System.Drawing.Size(155, 16);
+            this.radioWithFrame.Size = new System.Drawing.Size(193, 19);
             this.radioWithFrame.TabIndex = 0;
             this.radioWithFrame.Text = "完整图，含稀有度等图标";
             this.radioWithFrame.UseVisualStyleBackColor = true;
@@ -195,20 +166,69 @@
             // radioNoFrame
             // 
             this.radioNoFrame.AutoSize = true;
-            this.radioNoFrame.Location = new System.Drawing.Point(3, 3);
+            this.radioNoFrame.Location = new System.Drawing.Point(4, 4);
+            this.radioNoFrame.Margin = new System.Windows.Forms.Padding(4);
             this.radioNoFrame.Name = "radioNoFrame";
-            this.radioNoFrame.Size = new System.Drawing.Size(83, 16);
+            this.radioNoFrame.Size = new System.Drawing.Size(103, 19);
             this.radioNoFrame.TabIndex = 0;
             this.radioNoFrame.Text = "无图标原图";
             this.radioNoFrame.UseVisualStyleBackColor = true;
             this.radioNoFrame.CheckedChanged += new System.EventHandler(this.UprightTypeChanged);
             // 
+            // panelGashaInfo
+            // 
+            this.panelGashaInfo.Controls.Add(this.labelGashaInfoHint);
+            this.panelGashaInfo.Controls.Add(this.radioOldReso);
+            this.panelGashaInfo.Controls.Add(this.radioNewReso);
+            this.panelGashaInfo.Location = new System.Drawing.Point(276, 266);
+            this.panelGashaInfo.Margin = new System.Windows.Forms.Padding(4);
+            this.panelGashaInfo.Name = "panelGashaInfo";
+            this.panelGashaInfo.Size = new System.Drawing.Size(507, 37);
+            this.panelGashaInfo.TabIndex = 14;
+            // 
+            // labelGashaInfoHint
+            // 
+            this.labelGashaInfoHint.AutoSize = true;
+            this.labelGashaInfoHint.Location = new System.Drawing.Point(318, 8);
+            this.labelGashaInfoHint.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelGashaInfoHint.Name = "labelGashaInfoHint";
+            this.labelGashaInfoHint.Size = new System.Drawing.Size(129, 15);
+            this.labelGashaInfoHint.TabIndex = 2;
+            this.labelGashaInfoHint.Text = "注：新版自tb02起";
+            // 
+            // radioOldReso
+            // 
+            this.radioOldReso.AutoSize = true;
+            this.radioOldReso.Location = new System.Drawing.Point(161, 6);
+            this.radioOldReso.Margin = new System.Windows.Forms.Padding(4);
+            this.radioOldReso.Name = "radioOldReso";
+            this.radioOldReso.Size = new System.Drawing.Size(118, 19);
+            this.radioOldReso.TabIndex = 1;
+            this.radioOldReso.Text = "低分辨率旧版";
+            this.radioOldReso.UseVisualStyleBackColor = true;
+            this.radioOldReso.CheckedChanged += new System.EventHandler(this.GashaInfoChanged);
+            // 
+            // radioNewReso
+            // 
+            this.radioNewReso.AutoSize = true;
+            this.radioNewReso.Checked = true;
+            this.radioNewReso.Location = new System.Drawing.Point(4, 6);
+            this.radioNewReso.Margin = new System.Windows.Forms.Padding(4);
+            this.radioNewReso.Name = "radioNewReso";
+            this.radioNewReso.Size = new System.Drawing.Size(118, 19);
+            this.radioNewReso.TabIndex = 0;
+            this.radioNewReso.TabStop = true;
+            this.radioNewReso.Text = "高分辨率新版";
+            this.radioNewReso.UseVisualStyleBackColor = true;
+            this.radioNewReso.CheckedChanged += new System.EventHandler(this.GashaInfoChanged);
+            // 
             // labelProcessing
             // 
             this.labelProcessing.AutoSize = true;
-            this.labelProcessing.Location = new System.Drawing.Point(275, 280);
+            this.labelProcessing.Location = new System.Drawing.Point(370, 392);
+            this.labelProcessing.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelProcessing.Name = "labelProcessing";
-            this.labelProcessing.Size = new System.Drawing.Size(149, 12);
+            this.labelProcessing.Size = new System.Drawing.Size(187, 15);
             this.labelProcessing.TabIndex = 8;
             this.labelProcessing.Text = "正在进行合成，请稍候……";
             this.labelProcessing.Visible = false;
@@ -218,17 +238,19 @@
             this.panelGasha.Controls.Add(this.radioGashaBoth);
             this.panelGasha.Controls.Add(this.radioWide);
             this.panelGasha.Controls.Add(this.radioOrigin);
-            this.panelGasha.Location = new System.Drawing.Point(207, 117);
+            this.panelGasha.Location = new System.Drawing.Point(276, 146);
+            this.panelGasha.Margin = new System.Windows.Forms.Padding(4);
             this.panelGasha.Name = "panelGasha";
-            this.panelGasha.Size = new System.Drawing.Size(347, 29);
+            this.panelGasha.Size = new System.Drawing.Size(463, 36);
             this.panelGasha.TabIndex = 9;
             // 
             // radioGashaBoth
             // 
             this.radioGashaBoth.AutoSize = true;
-            this.radioGashaBoth.Location = new System.Drawing.Point(258, 4);
+            this.radioGashaBoth.Location = new System.Drawing.Point(344, 5);
+            this.radioGashaBoth.Margin = new System.Windows.Forms.Padding(4);
             this.radioGashaBoth.Name = "radioGashaBoth";
-            this.radioGashaBoth.Size = new System.Drawing.Size(83, 16);
+            this.radioGashaBoth.Size = new System.Drawing.Size(103, 19);
             this.radioGashaBoth.TabIndex = 0;
             this.radioGashaBoth.Text = "我全都要！";
             this.radioGashaBoth.UseVisualStyleBackColor = true;
@@ -237,9 +259,10 @@
             // radioWide
             // 
             this.radioWide.AutoSize = true;
-            this.radioWide.Location = new System.Drawing.Point(122, 4);
+            this.radioWide.Location = new System.Drawing.Point(163, 5);
+            this.radioWide.Margin = new System.Windows.Forms.Padding(4);
             this.radioWide.Name = "radioWide";
-            this.radioWide.Size = new System.Drawing.Size(119, 16);
+            this.radioWide.Size = new System.Drawing.Size(148, 19);
             this.radioWide.TabIndex = 0;
             this.radioWide.Text = "长图，以适应宽屏";
             this.radioWide.UseVisualStyleBackColor = true;
@@ -249,9 +272,10 @@
             // 
             this.radioOrigin.AutoSize = true;
             this.radioOrigin.Checked = true;
-            this.radioOrigin.Location = new System.Drawing.Point(3, 4);
+            this.radioOrigin.Location = new System.Drawing.Point(4, 5);
+            this.radioOrigin.Margin = new System.Windows.Forms.Padding(4);
             this.radioOrigin.Name = "radioOrigin";
-            this.radioOrigin.Size = new System.Drawing.Size(95, 16);
+            this.radioOrigin.Size = new System.Drawing.Size(118, 19);
             this.radioOrigin.TabIndex = 0;
             this.radioOrigin.TabStop = true;
             this.radioOrigin.Text = "正常比例原图";
@@ -260,24 +284,39 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.tglEvent);
             this.groupBox1.Controls.Add(this.tglWhiteBoard);
             this.groupBox1.Controls.Add(this.tglRareWide);
             this.groupBox1.Controls.Add(this.tglRareUpright);
             this.groupBox1.Controls.Add(this.tglGashaInfo);
             this.groupBox1.Controls.Add(this.tglGasha);
-            this.groupBox1.Location = new System.Drawing.Point(12, 60);
+            this.groupBox1.Location = new System.Drawing.Point(16, 75);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(183, 203);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox1.Size = new System.Drawing.Size(244, 287);
             this.groupBox1.TabIndex = 10;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "功能选择";
             // 
+            // tglEvent
+            // 
+            this.tglEvent.AutoSize = true;
+            this.tglEvent.Location = new System.Drawing.Point(18, 116);
+            this.tglEvent.Margin = new System.Windows.Forms.Padding(4);
+            this.tglEvent.Name = "tglEvent";
+            this.tglEvent.Size = new System.Drawing.Size(186, 19);
+            this.tglEvent.TabIndex = 5;
+            this.tglEvent.Text = "活动界面 完整图像合成";
+            this.tglEvent.UseVisualStyleBackColor = true;
+            // 
             // tglWhiteBoard
             // 
             this.tglWhiteBoard.AutoSize = true;
-            this.tglWhiteBoard.Location = new System.Drawing.Point(13, 170);
+            this.tglWhiteBoard.Location = new System.Drawing.Point(18, 237);
+            this.tglWhiteBoard.Margin = new System.Windows.Forms.Padding(4);
             this.tglWhiteBoard.Name = "tglWhiteBoard";
-            this.tglWhiteBoard.Size = new System.Drawing.Size(83, 16);
+            this.tglWhiteBoard.Size = new System.Drawing.Size(103, 19);
             this.tglWhiteBoard.TabIndex = 4;
             this.tglWhiteBoard.Text = "白板图提取";
             this.tglWhiteBoard.UseVisualStyleBackColor = true;
@@ -285,9 +324,10 @@
             // tglGashaInfo
             // 
             this.tglGashaInfo.AutoSize = true;
-            this.tglGashaInfo.Location = new System.Drawing.Point(13, 135);
+            this.tglGashaInfo.Location = new System.Drawing.Point(17, 197);
+            this.tglGashaInfo.Margin = new System.Windows.Forms.Padding(4);
             this.tglGashaInfo.Name = "tglGashaInfo";
-            this.tglGashaInfo.Size = new System.Drawing.Size(161, 16);
+            this.tglGashaInfo.Size = new System.Drawing.Size(201, 19);
             this.tglGashaInfo.TabIndex = 3;
             this.tglGashaInfo.Text = "卡池界面 信息介绍图合成";
             this.tglGashaInfo.UseVisualStyleBackColor = true;
@@ -298,17 +338,19 @@
             this.panelCard.Controls.Add(this.radioCardBoth);
             this.panelCard.Controls.Add(this.radioCardWide);
             this.panelCard.Controls.Add(this.radioCardOrigin);
-            this.panelCard.Location = new System.Drawing.Point(207, 85);
+            this.panelCard.Location = new System.Drawing.Point(276, 106);
+            this.panelCard.Margin = new System.Windows.Forms.Padding(4);
             this.panelCard.Name = "panelCard";
-            this.panelCard.Size = new System.Drawing.Size(347, 26);
+            this.panelCard.Size = new System.Drawing.Size(463, 32);
             this.panelCard.TabIndex = 12;
             // 
             // radioCardBoth
             // 
             this.radioCardBoth.AutoSize = true;
-            this.radioCardBoth.Location = new System.Drawing.Point(257, 3);
+            this.radioCardBoth.Location = new System.Drawing.Point(343, 4);
+            this.radioCardBoth.Margin = new System.Windows.Forms.Padding(4);
             this.radioCardBoth.Name = "radioCardBoth";
-            this.radioCardBoth.Size = new System.Drawing.Size(83, 16);
+            this.radioCardBoth.Size = new System.Drawing.Size(103, 19);
             this.radioCardBoth.TabIndex = 0;
             this.radioCardBoth.Text = "我全都要！";
             this.radioCardBoth.UseVisualStyleBackColor = true;
@@ -317,9 +359,10 @@
             // radioCardWide
             // 
             this.radioCardWide.AutoSize = true;
-            this.radioCardWide.Location = new System.Drawing.Point(121, 3);
+            this.radioCardWide.Location = new System.Drawing.Point(161, 4);
+            this.radioCardWide.Margin = new System.Windows.Forms.Padding(4);
             this.radioCardWide.Name = "radioCardWide";
-            this.radioCardWide.Size = new System.Drawing.Size(119, 16);
+            this.radioCardWide.Size = new System.Drawing.Size(148, 19);
             this.radioCardWide.TabIndex = 0;
             this.radioCardWide.Text = "长图（如果存在）";
             this.radioCardWide.UseVisualStyleBackColor = true;
@@ -329,9 +372,10 @@
             // 
             this.radioCardOrigin.AutoSize = true;
             this.radioCardOrigin.Checked = true;
-            this.radioCardOrigin.Location = new System.Drawing.Point(3, 3);
+            this.radioCardOrigin.Location = new System.Drawing.Point(4, 4);
+            this.radioCardOrigin.Margin = new System.Windows.Forms.Padding(4);
             this.radioCardOrigin.Name = "radioCardOrigin";
-            this.radioCardOrigin.Size = new System.Drawing.Size(95, 16);
+            this.radioCardOrigin.Size = new System.Drawing.Size(118, 19);
             this.radioCardOrigin.TabIndex = 0;
             this.radioCardOrigin.TabStop = true;
             this.radioCardOrigin.Text = "正常比例原图";
@@ -340,9 +384,10 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(488, 23);
+            this.button1.Location = new System.Drawing.Point(651, 29);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(97, 27);
+            this.button1.Size = new System.Drawing.Size(129, 34);
             this.button1.TabIndex = 11;
             this.button1.Text = "使用说明";
             this.button1.UseVisualStyleBackColor = true;
@@ -351,17 +396,68 @@
             // labelWhiteBoard
             // 
             this.labelWhiteBoard.AutoSize = true;
-            this.labelWhiteBoard.Location = new System.Drawing.Point(210, 232);
+            this.labelWhiteBoard.Location = new System.Drawing.Point(277, 316);
+            this.labelWhiteBoard.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelWhiteBoard.Name = "labelWhiteBoard";
-            this.labelWhiteBoard.Size = new System.Drawing.Size(155, 12);
+            this.labelWhiteBoard.Size = new System.Drawing.Size(198, 15);
             this.labelWhiteBoard.TabIndex = 13;
             this.labelWhiteBoard.Text = "需使用分辨率512x256的原图";
             // 
+            // panelEvent
+            // 
+            this.panelEvent.Controls.Add(this.radioEventBoth);
+            this.panelEvent.Controls.Add(this.radioEventFullWithLogo);
+            this.panelEvent.Controls.Add(this.radioEventFull);
+            this.panelEvent.Location = new System.Drawing.Point(275, 187);
+            this.panelEvent.Margin = new System.Windows.Forms.Padding(4);
+            this.panelEvent.Name = "panelEvent";
+            this.panelEvent.Size = new System.Drawing.Size(505, 32);
+            this.panelEvent.TabIndex = 15;
+            // 
+            // radioEventBoth
+            // 
+            this.radioEventBoth.AutoSize = true;
+            this.radioEventBoth.Location = new System.Drawing.Point(376, 4);
+            this.radioEventBoth.Margin = new System.Windows.Forms.Padding(4);
+            this.radioEventBoth.Name = "radioEventBoth";
+            this.radioEventBoth.Size = new System.Drawing.Size(103, 19);
+            this.radioEventBoth.TabIndex = 0;
+            this.radioEventBoth.Text = "我全都要！";
+            this.radioEventBoth.UseVisualStyleBackColor = true;
+            this.radioEventBoth.CheckedChanged += new System.EventHandler(this.CheckEventChanged);
+            // 
+            // radioEventFullWithLogo
+            // 
+            this.radioEventFullWithLogo.AutoSize = true;
+            this.radioEventFullWithLogo.Checked = true;
+            this.radioEventFullWithLogo.Location = new System.Drawing.Point(134, 4);
+            this.radioEventFullWithLogo.Margin = new System.Windows.Forms.Padding(4);
+            this.radioEventFullWithLogo.Name = "radioEventFullWithLogo";
+            this.radioEventFullWithLogo.Size = new System.Drawing.Size(210, 19);
+            this.radioEventFullWithLogo.TabIndex = 0;
+            this.radioEventFullWithLogo.TabStop = true;
+            this.radioEventFullWithLogo.Text = "完整大图（带有活动LOGO）";
+            this.radioEventFullWithLogo.UseVisualStyleBackColor = true;
+            this.radioEventFullWithLogo.CheckedChanged += new System.EventHandler(this.CheckEventChanged);
+            // 
+            // radioEventFull
+            // 
+            this.radioEventFull.AutoSize = true;
+            this.radioEventFull.Location = new System.Drawing.Point(4, 4);
+            this.radioEventFull.Margin = new System.Windows.Forms.Padding(4);
+            this.radioEventFull.Name = "radioEventFull";
+            this.radioEventFull.Size = new System.Drawing.Size(88, 19);
+            this.radioEventFull.TabIndex = 0;
+            this.radioEventFull.Text = "完整大图";
+            this.radioEventFull.UseVisualStyleBackColor = true;
+            this.radioEventFull.CheckedChanged += new System.EventHandler(this.CheckEventChanged);
+            // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(607, 301);
+            this.ClientSize = new System.Drawing.Size(809, 424);
+            this.Controls.Add(this.panelEvent);
             this.Controls.Add(this.panelGashaInfo);
             this.Controls.Add(this.labelWhiteBoard);
             this.Controls.Add(this.panelCard);
@@ -373,8 +469,9 @@
             this.Controls.Add(this.labelDescription);
             this.Controls.Add(this.buttonOpenFile);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
-            this.Text = "ImageComposer  v1.5";
+            this.Text = "ImageComposer  v1.6";
             this.panelRareUpright.ResumeLayout(false);
             this.panelRareUpright.PerformLayout();
             this.panelGashaInfo.ResumeLayout(false);
@@ -385,6 +482,8 @@
             this.groupBox1.PerformLayout();
             this.panelCard.ResumeLayout(false);
             this.panelCard.PerformLayout();
+            this.panelEvent.ResumeLayout(false);
+            this.panelEvent.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -419,6 +518,11 @@
         private System.Windows.Forms.RadioButton radioOldReso;
         private System.Windows.Forms.RadioButton radioNewReso;
         private System.Windows.Forms.Label labelGashaInfoHint;
+        private System.Windows.Forms.RadioButton tglEvent;
+        private System.Windows.Forms.Panel panelEvent;
+        private System.Windows.Forms.RadioButton radioEventBoth;
+        private System.Windows.Forms.RadioButton radioEventFullWithLogo;
+        private System.Windows.Forms.RadioButton radioEventFull;
     }
 }
 
