@@ -16,6 +16,7 @@ namespace ImageComposer
             panelRareUpright.Visible = false;
             panelGasha.Visible = false;
             panelGashaInfo.Visible = false;
+            panelEvent.Visible = false;//新加入EVENT
             labelWhiteBoard.Visible = false;
         }
 
@@ -32,6 +33,7 @@ namespace ImageComposer
                 labelProcessing.Visible = true; // todo : 目前无用，有待改进
                 foreach (var fileName in ofd.FileNames)
                 {
+                    //MessageBox.Show(FileManager.ReadLogoJson(fileName, 1, "x").ToString(), "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     resultList.Add(FileManager.ImageCompose(fileName));
                 }
                 labelProcessing.Visible = false;
@@ -90,6 +92,8 @@ namespace ImageComposer
                 panelGasha.Visible = false;
                 panelGashaInfo.Visible = false;
                 labelWhiteBoard.Visible = false;
+
+                panelEvent.Visible = false;
             }
 
             if (tglRareUpright.Checked)
@@ -100,6 +104,8 @@ namespace ImageComposer
                 panelGasha.Visible = false;
                 panelGashaInfo.Visible = false;
                 labelWhiteBoard.Visible = false;
+
+                panelEvent.Visible = false;
             }
 
             if (tglGasha.Checked)
@@ -110,6 +116,8 @@ namespace ImageComposer
                 panelGasha.Visible = true;
                 panelGashaInfo.Visible = false;
                 labelWhiteBoard.Visible = false;
+
+                panelEvent.Visible = false;
             }
 
             if (tglGashaInfo.Checked)
@@ -120,6 +128,8 @@ namespace ImageComposer
                 panelGasha.Visible = false;
                 panelGashaInfo.Visible = true;
                 labelWhiteBoard.Visible = false;
+
+                panelEvent.Visible = false;
             }
 
             if (tglWhiteBoard.Checked)
@@ -130,6 +140,20 @@ namespace ImageComposer
                 panelGasha.Visible = false;
                 panelGashaInfo.Visible = false;
                 labelWhiteBoard.Visible = true;
+
+                panelEvent.Visible = false;
+            }
+            //新加入EVENT
+            if (tglEvent.Checked)
+            {
+                FileManager.funcType = FUNC_TYPE.Event;
+                panelCard.Visible = false;
+                panelRareUpright.Visible = false;
+                panelGasha.Visible = false;
+                panelGashaInfo.Visible = false;
+                labelWhiteBoard.Visible = false;
+
+                panelEvent.Visible = true;
             }
         }
 
@@ -170,6 +194,26 @@ namespace ImageComposer
                 FileManager.uprightType = UPRIGHT_TYPE.Both;
             }
         }
+
+        //卡池图片拼接功能内的参数选择
+        private void CheckEventChanged(object sender, EventArgs e)
+        {
+            if (radioEventFull.Checked)
+            {
+                FileManager.eventType = EVENT_TYPE.Full;
+            }
+
+            if (radioEventFullWithLogo.Checked)
+            {
+                FileManager.eventType = EVENT_TYPE.Full_With_LogoAll;
+            }
+
+            if (radioEventBoth.Checked)
+            {
+                FileManager.eventType = EVENT_TYPE.ALL;
+            }
+        }
+
 
         //卡池图片拼接功能内的参数选择
         private void CheckGashaChanged(object sender, EventArgs e)

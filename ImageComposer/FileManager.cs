@@ -2,6 +2,8 @@
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Text;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace ImageComposer
 {
@@ -13,6 +15,8 @@ namespace ImageComposer
         public static CARD_TYPE cardType = CARD_TYPE.Origin;
         public static GASHA_TYPE gashaType = GASHA_TYPE.Origin;
         public static GASHAINFO_TYPE gashaInfoType = GASHAINFO_TYPE.New;
+        //新增EVENT
+        public static EVENT_TYPE eventType = EVENT_TYPE.Full_With_LogoAll;
 
         //拼图流程的主入口，从此处区分各个功能要执行的不同操作
         public static ERROR_TYPE ImageCompose(string path)
@@ -56,6 +60,10 @@ namespace ImageComposer
                 case FUNC_TYPE.WhiteBoard:
                     result = WhiteBoardCompose(path);
                 break;
+                //新增EVENT
+                case FUNC_TYPE.Event:
+                    result = EventCompose(path);
+                break;
             }
 
             return result;
@@ -81,36 +89,20 @@ namespace ImageComposer
                 return ERROR_TYPE.SizeError;
             }
 
-            Bitmap bitmapLeft = new Bitmap(1024, 720);
-            Bitmap bitmapRight = new Bitmap(720, 258);
+            //新建位图后将素材剪切绘制到位图上 （修正错位问题：在剪切时需要在y位置增加1像素）
             Bitmap bitmapResult = new Bitmap(1280, 720);
-
-            //DrawImage中，new rectangle指定目标图像尺寸，后面四个参数决定左上到右下两点的位置，从而确定出要切割出来的矩形图像，最后绘制到目标位图上。
-            Graphics graphics = Graphics.FromImage(bitmapLeft);
-            graphics.DrawImage(bitmapOrigin, new Rectangle(0, 0, 1024, 720), 0, 0, 1024, 720, GraphicsUnit.Pixel);
-            graphics = Graphics.FromImage(bitmapRight);
-            graphics.DrawImage(bitmapOrigin, new Rectangle(0, 0, 720, 258), 0, 764, 722, 258, GraphicsUnit.Pixel);
-
-            bitmapRight.RotateFlip(RotateFlipType.Rotate270FlipNone);
-
-            //每个像素依次绘制到目标位图上。效率较低，有待改进。
-
-            for (int i = 0; i < 1024; i++)
+            using (Graphics G_result = Graphics.FromImage(bitmapResult))
             {
-                for (int j = 0; j < 720; j++)
+                using (Bitmap bitmapLeft = bitmapOrigin.Clone(new System.Drawing.Rectangle(0, 1, 1022, 720), bitmapOrigin.PixelFormat))
                 {
-                    var pixel = bitmapLeft.GetPixel(i, j);
-                    bitmapResult.SetPixel(i, j, pixel);
+                    G_result.DrawImage(bitmapLeft, 0, 0, 1022, 720);
                 }
-            }
-
-            for (int i = 0; i < 258; i++)
-            {
-                for (int j = 0; j < 720; j++)
+                bitmapOrigin.RotateFlip(RotateFlipType.Rotate270FlipNone);
+                using (Bitmap bitmapRight = bitmapOrigin.Clone(new System.Drawing.Rectangle(764, 303, 258, 720), bitmapOrigin.PixelFormat))
                 {
-                    var pixel = bitmapRight.GetPixel(i, j);
-                    bitmapResult.SetPixel(i + 1022, j, pixel);
+                    G_result.DrawImage(bitmapRight, 1022, 0, 258, 720);
                 }
+                bitmapOrigin.Dispose();
             }
 
             if (cardType == CARD_TYPE.Origin)
@@ -118,11 +110,7 @@ namespace ImageComposer
                 try
                 {
                     bitmapResult.Save(CreateSaveName(path), ImageFormat.Png);
-                    bitmapOrigin.Dispose();
-                    bitmapLeft.Dispose();
-                    bitmapRight.Dispose();
                     bitmapResult.Dispose();
-                    graphics.Dispose();
                 }
                 catch (Exception)
                 {
@@ -144,80 +132,34 @@ namespace ImageComposer
                     return ERROR_TYPE.SizeError;
                 }
 
-                Bitmap bitmap1 = new Bitmap(168, 510);
-                Bitmap bitmap2 = new Bitmap(168, 510);
-                Bitmap bitmap3 = new Bitmap(168, 210);
-                Bitmap bitmap4 = new Bitmap(168, 210);
                 Bitmap bitmapResultWide = new Bitmap(1616, 720);
-
-                graphics = Graphics.FromImage(bitmap1);
-                graphics.DrawImage(bitmapWide, new Rectangle(0, 0, 168, 510), 0, 0, 168, 510, GraphicsUnit.Pixel);
-                graphics = Graphics.FromImage(bitmap2);
-                graphics.DrawImage(bitmapWide, new Rectangle(0, 0, 168, 510), 170, 0, 168, 510, GraphicsUnit.Pixel);
-                graphics = Graphics.FromImage(bitmap3);
-                graphics.DrawImage(bitmapWide, new Rectangle(0, 0, 168, 210), 340, 0, 168, 210, GraphicsUnit.Pixel);
-                graphics = Graphics.FromImage(bitmap4);
-                graphics.DrawImage(bitmapWide, new Rectangle(0, 0, 168, 210), 340, 256, 168, 210, GraphicsUnit.Pixel);
-
-                for (int i = 0; i < 168; i++)//b1
+                using (Graphics G_ResultWide = Graphics.FromImage(bitmapResultWide))
                 {
-                    for (int j = 0; j < 510; j++)
+                    G_ResultWide.DrawImage(bitmapResult, 168, 0, 1280, 720);
+                    using (Bitmap bitmapWide_L = bitmapWide.Clone(new System.Drawing.Rectangle(0, 1, 168, 510), bitmapOrigin.PixelFormat))
                     {
-                        var pixel = bitmap1.GetPixel(i, j);
-                        bitmapResultWide.SetPixel(i, j, pixel);
+                        G_ResultWide.DrawImage(bitmapWide_L, 0, 0, 168, 510);
                     }
-                }
-
-                for (int i = 0; i < 168; i++)//b3
-                {
-                    for (int j = 0; j < 210; j++)
+                    using (Bitmap bitmapWide_R = bitmapWide.Clone(new System.Drawing.Rectangle(170, 1, 168, 510), bitmapOrigin.PixelFormat))
                     {
-                        var pixel = bitmap3.GetPixel(i, j);
-                        bitmapResultWide.SetPixel(i, j + 510, pixel);
+                        G_ResultWide.DrawImage(bitmapWide_R, 1448, 0, 168, 510);
                     }
-                }
-
-                for (int i = 0; i < 1280; i++)//br
-                {
-                    for (int j = 0; j < 720; j++)
+                    using (Bitmap bitmapWide_l = bitmapWide.Clone(new System.Drawing.Rectangle(340, 1, 168, 210), bitmapOrigin.PixelFormat))
                     {
-                        var pixel = bitmapResult.GetPixel(i, j);
-                        bitmapResultWide.SetPixel(i + 168, j, pixel);
+                        G_ResultWide.DrawImage(bitmapWide_l, 0, 510, 168, 210);
                     }
-                }
-
-                for (int i = 0; i < 168; i++)//b2
-                {
-                    for (int j = 0; j < 510; j++)
+                    using (Bitmap bitmapWide_r = bitmapWide.Clone(new System.Drawing.Rectangle(340, 257, 168, 210), bitmapOrigin.PixelFormat))
                     {
-                        var pixel = bitmap2.GetPixel(i, j);
-                        bitmapResultWide.SetPixel(i + 1448, j, pixel);
+                        G_ResultWide.DrawImage(bitmapWide_r, 1448, 510, 168, 210);
                     }
-                }
-
-                for (int i = 0; i < 168; i++)//b4
-                {
-                    for (int j = 0; j < 210; j++)
-                    {
-                        var pixel = bitmap4.GetPixel(i, j);
-                        bitmapResultWide.SetPixel(i + 1448, j + 510, pixel);
-                    }
+                    bitmapResult.Dispose();
+                    bitmapWide.Dispose();
                 }
 
                 try
                 {
                     bitmapResultWide.Save(CreateWideGashaName(path), ImageFormat.Png);
-                    bitmapOrigin.Dispose();
-                    bitmapLeft.Dispose();
-                    bitmapRight.Dispose();
-                    bitmapResult.Dispose();
                     bitmapResultWide.Dispose();
-                    bitmapWide.Dispose();
-                    bitmap1.Dispose();
-                    bitmap2.Dispose();
-                    bitmap3.Dispose();
-                    bitmap4.Dispose();
-                    graphics.Dispose();
                 }
                 catch (Exception)
                 {
@@ -446,6 +388,215 @@ namespace ImageComposer
 
             return ERROR_TYPE.Succeed;
         }
+        #endregion
+
+        #region EVENT界面
+        public static ERROR_TYPE EventCompose(string path)
+        {
+            Bitmap bitmapOrigin;
+
+            try
+            {
+                bitmapOrigin = new Bitmap(path);
+            }
+            catch (Exception)
+            {
+                return ERROR_TYPE.FileError;
+            }
+
+            if (bitmapOrigin.Width != 1024 || bitmapOrigin.Height != 1024)
+            {
+                return ERROR_TYPE.SizeError;
+            }
+
+            Bitmap bitmapResult = new Bitmap(1280, 720);
+            using (Graphics G_result = Graphics.FromImage(bitmapResult))
+            {
+                using (Bitmap bitmapLeft = bitmapOrigin.Clone(new System.Drawing.Rectangle(0, 1, 1022, 720), bitmapOrigin.PixelFormat))
+                {
+                    G_result.DrawImage(bitmapLeft, 0, 0, 1022, 720);
+                }
+                bitmapOrigin.RotateFlip(RotateFlipType.Rotate270FlipNone);
+                using (Bitmap bitmapRight = bitmapOrigin.Clone(new System.Drawing.Rectangle(764, 303, 258, 720), bitmapOrigin.PixelFormat))
+                {
+                    G_result.DrawImage(bitmapRight, 1022, 0, 258, 720);
+                }
+                bitmapOrigin.Dispose();
+            }
+
+            if (eventType == EVENT_TYPE.ALL)
+            {
+                bitmapResult.Save(CreateFullEventName(path, CREATEFILENAME_TYPE.Origin), ImageFormat.Png);
+            }
+
+            Bitmap bitmapWide = new Bitmap(GetFullEventName(path, GETFILENAME_TYPE.x0));
+
+            if (bitmapWide.Width != 512 || bitmapWide.Height != 512)
+            {
+                return ERROR_TYPE.SizeError;
+            }
+
+            Bitmap bitmapResultWide = new Bitmap(1616, 720);
+            using (Graphics G_ResultWide = Graphics.FromImage(bitmapResultWide))
+            {
+                G_ResultWide.DrawImage(bitmapResult, 168, 0, 1280, 720);
+                using (Bitmap bitmapWide_L = bitmapWide.Clone(new System.Drawing.Rectangle(0, 1, 168, 510), bitmapOrigin.PixelFormat))
+                {
+                    G_ResultWide.DrawImage(bitmapWide_L, 0, 0, 168, 510);
+                }
+                using (Bitmap bitmapWide_R = bitmapWide.Clone(new System.Drawing.Rectangle(170, 1, 168, 510), bitmapOrigin.PixelFormat))
+                {
+                    G_ResultWide.DrawImage(bitmapWide_R, 1448, 0, 168, 510);
+                }
+                using (Bitmap bitmapWide_l = bitmapWide.Clone(new System.Drawing.Rectangle(340, 1, 168, 210), bitmapOrigin.PixelFormat))
+                {
+                    G_ResultWide.DrawImage(bitmapWide_l, 0, 510, 168, 210);
+                }
+                using (Bitmap bitmapWide_r = bitmapWide.Clone(new System.Drawing.Rectangle(340, 257, 168, 210), bitmapOrigin.PixelFormat))
+                {
+                    G_ResultWide.DrawImage(bitmapWide_r, 1448, 510, 168, 210);
+                }
+                bitmapResult.Dispose();
+                bitmapWide.Dispose();
+            }
+
+            if (eventType == EVENT_TYPE.ALL)
+            {
+                bitmapResultWide.Save(CreateFullEventName(path, CREATEFILENAME_TYPE.EventWide), ImageFormat.Png);
+            }
+
+            Bitmap bitmapFull_T = new Bitmap(GetFullEventName(path, GETFILENAME_TYPE.x1));
+
+            if (bitmapFull_T.Width != 512 || bitmapFull_T.Height != 512)
+            {
+                return ERROR_TYPE.SizeError;
+            }
+
+            Bitmap bitmapResultFull = new Bitmap(1616, 960);
+            using (Graphics G_ResultFull = Graphics.FromImage(bitmapResultFull))
+            {
+                G_ResultFull.DrawImage(bitmapResultWide, 0, 120, 1616, 720);
+                using (Bitmap bitmapFull_T1 = bitmapFull_T.Clone(new System.Drawing.Rectangle(0, 1, 510, 120), bitmapFull_T.PixelFormat))
+                {
+                    G_ResultFull.DrawImage(bitmapFull_T1, 0, 0, 510, 120);
+                }
+                using (Bitmap bitmapFull_T2 = bitmapFull_T.Clone(new System.Drawing.Rectangle(0, 123, 510, 120), bitmapFull_T.PixelFormat))
+                {
+                    G_ResultFull.DrawImage(bitmapFull_T2, 510, 0, 510, 120);
+                }
+                using (Bitmap bitmapFull_T3 = bitmapFull_T.Clone(new System.Drawing.Rectangle(0, 245, 510, 120), bitmapFull_T.PixelFormat))
+                {
+                    G_ResultFull.DrawImage(bitmapFull_T3, 1020, 0, 510, 120);
+                }
+                using (Bitmap bitmapFull_T4 = bitmapFull_T.Clone(new System.Drawing.Rectangle(0, 367, 86, 120), bitmapFull_T.PixelFormat))
+                {
+                    G_ResultFull.DrawImage(bitmapFull_T4, 1530, 0, 86, 120);
+                }
+                bitmapResultWide.Dispose();
+                bitmapFull_T.Dispose();
+            }
+
+            Bitmap bitmapFull_B = new Bitmap(GetFullEventName(path, GETFILENAME_TYPE.x2));
+
+            if (bitmapFull_B.Width != 512 || bitmapFull_B.Height != 512)
+            {
+                return ERROR_TYPE.SizeError;
+            }
+
+            using (Graphics G_ResultFull = Graphics.FromImage(bitmapResultFull))
+            {
+                using (Bitmap bitmapFull_B1 = bitmapFull_B.Clone(new System.Drawing.Rectangle(0, 1, 510, 120), bitmapFull_B.PixelFormat))
+                {
+                    G_ResultFull.DrawImage(bitmapFull_B1, 0, 840, 510, 120);
+                }
+                using (Bitmap bitmapFull_B2 = bitmapFull_B.Clone(new System.Drawing.Rectangle(0, 123, 510, 120), bitmapFull_B.PixelFormat))
+                {
+                    G_ResultFull.DrawImage(bitmapFull_B2, 510, 840, 510, 120);
+                }
+                using (Bitmap bitmapFull_B3 = bitmapFull_B.Clone(new System.Drawing.Rectangle(0, 245, 510, 120), bitmapFull_B.PixelFormat))
+                {
+                    G_ResultFull.DrawImage(bitmapFull_B3, 1020, 840, 510, 120);
+                }
+                using (Bitmap bitmapFull_B4 = bitmapFull_B.Clone(new System.Drawing.Rectangle(0, 367, 86, 120), bitmapFull_B.PixelFormat))
+                {
+                    G_ResultFull.DrawImage(bitmapFull_B4, 1530, 840, 86, 120);
+                }
+                bitmapFull_B.Dispose();
+            }
+
+            if (eventType == EVENT_TYPE.Full)
+            {
+                try
+                {
+                    bitmapResultFull.Save(CreateFullEventName(path, CREATEFILENAME_TYPE.EventFull), ImageFormat.Png);
+                    bitmapResultFull.Dispose();
+                }
+                catch (Exception)
+                {
+                    return ERROR_TYPE.FileError;
+                }
+                return ERROR_TYPE.Succeed;
+            }
+            else
+            {
+                if (eventType == EVENT_TYPE.ALL)
+                {
+                    bitmapResultFull.Save(CreateFullEventName(path, CREATEFILENAME_TYPE.EventFull), ImageFormat.Png);
+                }
+
+                Bitmap bitmapFull_Logo1 = new Bitmap(GetFullEventName(path, GETFILENAME_TYPE.logo_01));
+                //针对某些情况下只有logo1，因此对logo2存在进行判断后引用
+                if (System.IO.File.Exists(GetFullEventName(path, GETFILENAME_TYPE.logo_02)))
+                {
+                    Bitmap bitmapFull_Logo2 = new Bitmap(GetFullEventName(path, GETFILENAME_TYPE.logo_02));
+                    if (eventType == EVENT_TYPE.ALL)
+                    {
+                        Bitmap bitmapResultFullWithLogo2 = new Bitmap(1616, 960);
+                        using (Graphics G_ResultFull = Graphics.FromImage(bitmapResultFullWithLogo2))
+                        {
+                            G_ResultFull.DrawImage(bitmapResultFull, 0, 0, 1616, 960);
+                            G_ResultFull.DrawImage(bitmapFull_Logo2, ReadLogoJson(path, 2, "x") + 168, ReadLogoJson(path, 2, "y") + 120);
+                        }
+                        bitmapResultFullWithLogo2.Save(CreateFullEventName(path, CREATEFILENAME_TYPE.EventFull_With_Logo2), ImageFormat.Png);
+                        bitmapResultFullWithLogo2.Dispose();
+                    }
+                }
+                //Bitmap bitmapFull_Logo2 = new Bitmap(GetFullEventName(path, GETFILENAME_TYPE.logo_02));
+
+                using (Graphics G_ResultFull = Graphics.FromImage(bitmapResultFull))
+                {
+                    G_ResultFull.DrawImage(bitmapFull_Logo1, ReadLogoJson(path, 1, "x") + 168, ReadLogoJson(path, 1, "y") + 120);
+                }
+
+                if (System.IO.File.Exists(GetFullEventName(path, GETFILENAME_TYPE.logo_02)))
+                {
+                    if (eventType == EVENT_TYPE.ALL)
+                    {
+                        bitmapResultFull.Save(CreateFullEventName(path, CREATEFILENAME_TYPE.EventFull_With_Logo1), ImageFormat.Png);
+                    }
+                    Bitmap bitmapFull_Logo2 = new Bitmap(GetFullEventName(path, GETFILENAME_TYPE.logo_02));
+                    using (Graphics G_ResultFull = Graphics.FromImage(bitmapResultFull))
+                    {
+                        G_ResultFull.DrawImage(bitmapFull_Logo2, ReadLogoJson(path, 2, "x") + 168, ReadLogoJson(path, 2, "y") + 120);
+                    }
+                    bitmapFull_Logo2.Dispose();
+                }
+
+                try
+                {
+                    bitmapResultFull.Save(CreateFullEventName(path, CREATEFILENAME_TYPE.EventFull_With_LogoAll), ImageFormat.Png);
+                    bitmapFull_Logo1.Dispose();
+                    bitmapResultFull.Dispose();
+                }
+                catch (Exception)
+                {
+                    return ERROR_TYPE.FileError;
+                }
+                return ERROR_TYPE.Succeed;
+            }
+
+        }
+
         #endregion
 
         #region 卡池界面
@@ -867,6 +1018,86 @@ namespace ImageComposer
             return result;
         }
 
+        public static string CreateFullEventName(string str , CREATEFILENAME_TYPE createFileNameType)
+        {
+            string[] strResult = str.Split('.');
+            int num = strResult.Length;
+            if (num > 1)
+                switch (createFileNameType)
+                {
+                    case CREATEFILENAME_TYPE.Origin:
+                        strResult[num - 2] += "_Origin";
+                        break;
+                    case CREATEFILENAME_TYPE.EventWide:
+                        strResult[num - 2] += " - EventWide";
+                        break;
+                    case CREATEFILENAME_TYPE.EventFull:
+                        strResult[num - 2] += " - EventFull";
+                        break;
+                    case CREATEFILENAME_TYPE.EventFull_With_Logo1:
+                        strResult[num - 2] += " - EventFull_With_Logo1";
+                        break;
+                    case CREATEFILENAME_TYPE.EventFull_With_Logo2:
+                        strResult[num - 2] += " - EventFull_With_Logo2";
+                        break;
+                    case CREATEFILENAME_TYPE.EventFull_With_LogoAll:
+                        strResult[num - 2] += " - EventFull_With_LogoAll";
+                        break;
+                }
+            StringBuilder resultStrB = new StringBuilder();
+            for (int i = 0; i < num; i++)
+            {
+                resultStrB.Append(strResult[i]);
+                if (i < num - 1)
+                    resultStrB.Append(".");
+            }
+            string result = resultStrB.ToString();
+
+            return result;
+        }
+
+        public static string GetFullEventName(string str, GETFILENAME_TYPE getFileNameType)
+        {
+            string[] strResult = str.Split('.');
+            int num = strResult.Length;
+            
+            if (num > 1)
+                switch (getFileNameType)
+                {
+                    case GETFILENAME_TYPE.x:
+                        strResult[num - 2] += "_x";
+                    break;
+                    case GETFILENAME_TYPE.x0:
+                        strResult[num - 2] += "_x0";
+                    break;
+                    case GETFILENAME_TYPE.x1:
+                        strResult[num - 2] += "_x1";
+                    break;
+                    case GETFILENAME_TYPE.x2:
+                        strResult[num - 2] += "_x2";
+                    break;
+                    case GETFILENAME_TYPE.logo_01:
+                        strResult[num - 2] += "_logo_01";
+                    break;
+                    case GETFILENAME_TYPE.logo_02:
+                        strResult[num - 2] += "_logo_02";
+                    break;
+                    case GETFILENAME_TYPE.logo_position:
+                        strResult[num - 2] = strResult[num - 2].Substring(0, strResult[num - 2].Length - 2);
+                        strResult[num - 2] += "logo_position.txt";
+                    return strResult[num - 2];
+                }
+
+            StringBuilder resultStrB = new StringBuilder();
+            for (int i = 0; i < num; i++)
+            {
+                resultStrB.Append(strResult[i]);
+                if (i < num - 1)
+                    resultStrB.Append(".");
+            }
+            return resultStrB.ToString();
+        }
+
         public static string GetWideGashaName(string str)
         {
             string[] strResult = str.Split('.');
@@ -903,7 +1134,24 @@ namespace ImageComposer
             return result;
         }
 
+        /// <summary>
+        /// 读取LOGO位置
+        /// </summary>
+        public static int ReadLogoJson(string path, int logoNum, string key)
+        {
+            string jsonfile = GetFullEventName(path, GETFILENAME_TYPE.logo_position);//JSON文件路径
+
+            using (System.IO.StreamReader file = System.IO.File.OpenText(jsonfile))
+            {
+                using (JsonTextReader reader = new JsonTextReader(file))
+                {
+                    JObject o = (JObject)JToken.ReadFrom(reader);
+                    int value = (int) o["list"][logoNum - 1]["position"][key];
+                    return value;
+                }
+            }
+        }
         #endregion
-    
+
     }
 }
