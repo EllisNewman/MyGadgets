@@ -197,6 +197,21 @@ namespace ImageComposer
     }
 
     /// <summary>
+    /// 白板图拼接时的选项
+    /// </summary>
+    public enum WHITEBOARD_TYPE
+    {
+        /// <summary>
+        /// 新版
+        /// </summary>
+        New,
+        /// <summary>
+        /// 旧版
+        /// </summary>
+        Old
+    }
+
+    /// <summary>
     /// 可能的错误(或成功)类型
     /// </summary>
     public enum ERROR_TYPE

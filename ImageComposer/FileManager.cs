@@ -17,6 +17,7 @@ namespace ImageComposer
         public static GASHAINFO_TYPE gashaInfoType = GASHAINFO_TYPE.New;
         //新增EVENT
         public static EVENT_TYPE eventType = EVENT_TYPE.Full_With_LogoAll;
+        public static WHITEBOARD_TYPE whiteBoardType = WHITEBOARD_TYPE.Old;
 
         //拼图流程的主入口，从此处区分各个功能要执行的不同操作
         public static ERROR_TYPE ImageCompose(string path)
@@ -900,28 +901,67 @@ namespace ImageComposer
                 return ERROR_TYPE.FileError;
             }
 
-            if (bitmapOrigin.Width != 512 || bitmapOrigin.Height != 256)
-            {
-                return ERROR_TYPE.SizeError;
-            }
+            
 
-            Bitmap bitmapResult = new Bitmap(355, 205);
-
-            Graphics graphics = Graphics.FromImage(bitmapResult);
-            graphics.DrawImage(bitmapOrigin, new Rectangle(0, 0, 356, 206), 3, 3, 357, 207, GraphicsUnit.Pixel);
-
-            try
+            if (whiteBoardType == WHITEBOARD_TYPE.Old)
             {
-                bitmapResult.Save(CreateSaveName(path), ImageFormat.Png);
-                bitmapOrigin.Dispose();
-                bitmapResult.Dispose();
-                graphics.Dispose();
+                if (bitmapOrigin.Width != 512 || bitmapOrigin.Height != 256)
+                {
+                    return ERROR_TYPE.SizeError;
+                }
+
+                Bitmap bitmapResult = new Bitmap(355, 205);
+
+                Graphics graphics = Graphics.FromImage(bitmapResult);
+                graphics.DrawImage(bitmapOrigin, new Rectangle(0, 0, 356, 206), 3, 3, 357, 207, GraphicsUnit.Pixel);
+
+                try
+                {
+                    bitmapResult.Save(CreateSaveName(path), ImageFormat.Png);
+                    bitmapOrigin.Dispose();
+                    bitmapResult.Dispose();
+                    graphics.Dispose();
+                }
+                catch (Exception)
+                {
+                    return ERROR_TYPE.FileError;
+                }
+                return ERROR_TYPE.Succeed;
             }
-            catch (Exception)
+            else
             {
-                return ERROR_TYPE.FileError;
+                if (bitmapOrigin.Width != 512 || bitmapOrigin.Height != 512)
+                {
+                    return ERROR_TYPE.SizeError;
+                }
+
+                Bitmap bitmapResult = new Bitmap(640, 370);
+                using (Graphics G_result = Graphics.FromImage(bitmapResult))
+                {
+                    using (Bitmap bitmapLeft = bitmapOrigin.Clone(new Rectangle(0, 0, 510, 370), bitmapOrigin.PixelFormat))
+                    {
+                        G_result.DrawImage(bitmapLeft, 0, 0, 510, 370);
+                    }
+                    bitmapOrigin.RotateFlip(RotateFlipType.Rotate270FlipNone);
+                    using (Bitmap bitmapRight = bitmapOrigin.Clone(new Rectangle(380, 140, 130, 370), bitmapOrigin.PixelFormat))
+                    {
+                        G_result.DrawImage(bitmapRight, 510, 0, 130, 370);
+                    }
+                    bitmapOrigin.Dispose();
+                }
+
+                try
+                {
+                    bitmapResult.Save(CreateSaveName(path), ImageFormat.Png);
+                    bitmapResult.Dispose();
+                }
+                catch (Exception)
+                {
+                    return ERROR_TYPE.FileError;
+                }
+                return ERROR_TYPE.Succeed;
+
             }
-            return ERROR_TYPE.Succeed;
         }
 
         #endregion

@@ -17,7 +17,7 @@ namespace ImageComposer
             panelGasha.Visible = false;
             panelGashaInfo.Visible = false;
             panelEvent.Visible = false;//新加入EVENT
-            labelWhiteBoard.Visible = false;
+            panelWhiteBoard.Visible = false;
         }
 
         //点击“打开文件”按钮时执行的操作
@@ -91,7 +91,7 @@ namespace ImageComposer
                 panelRareUpright.Visible = false;
                 panelGasha.Visible = false;
                 panelGashaInfo.Visible = false;
-                labelWhiteBoard.Visible = false;
+                panelWhiteBoard.Visible = false;
 
                 panelEvent.Visible = false;
             }
@@ -103,7 +103,7 @@ namespace ImageComposer
                 panelRareUpright.Visible = true;
                 panelGasha.Visible = false;
                 panelGashaInfo.Visible = false;
-                labelWhiteBoard.Visible = false;
+                panelWhiteBoard.Visible = false;
 
                 panelEvent.Visible = false;
             }
@@ -115,7 +115,7 @@ namespace ImageComposer
                 panelRareUpright.Visible = false;
                 panelGasha.Visible = true;
                 panelGashaInfo.Visible = false;
-                labelWhiteBoard.Visible = false;
+                panelWhiteBoard.Visible = false;
 
                 panelEvent.Visible = false;
             }
@@ -127,7 +127,7 @@ namespace ImageComposer
                 panelRareUpright.Visible = false;
                 panelGasha.Visible = false;
                 panelGashaInfo.Visible = true;
-                labelWhiteBoard.Visible = false;
+                panelWhiteBoard.Visible = false;
 
                 panelEvent.Visible = false;
             }
@@ -139,7 +139,7 @@ namespace ImageComposer
                 panelRareUpright.Visible = false;
                 panelGasha.Visible = false;
                 panelGashaInfo.Visible = false;
-                labelWhiteBoard.Visible = true;
+                panelWhiteBoard.Visible = true;
 
                 panelEvent.Visible = false;
             }
@@ -151,7 +151,7 @@ namespace ImageComposer
                 panelRareUpright.Visible = false;
                 panelGasha.Visible = false;
                 panelGashaInfo.Visible = false;
-                labelWhiteBoard.Visible = false;
+                panelWhiteBoard.Visible = false;
 
                 panelEvent.Visible = true;
             }
@@ -245,6 +245,21 @@ namespace ImageComposer
             if (radioOldReso.Checked)
             {
                 FileManager.gashaInfoType = GASHAINFO_TYPE.Old;
+            }
+
+        }
+
+        //白板图拼接功能内的参数选择
+        private void WhiteBoardChanged(object sender, EventArgs e)
+        {
+            if (radioOldWB.Checked)
+            {
+                FileManager.whiteBoardType = WHITEBOARD_TYPE.Old;
+            }
+
+            if (radioNewWB.Checked)
+            {
+                FileManager.whiteBoardType = WHITEBOARD_TYPE.New;
             }
 
         }
