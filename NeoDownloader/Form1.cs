@@ -284,7 +284,7 @@ namespace NeoDownloader
             string indexPath = Define.LocalPath + Define.IndexPath + @"\" + Define.VersionDic[Define.GameVersion];
             if (File.Exists(indexPath))
             {
-                if (!FileManager.ReadIndexFile(indexPath))
+                if (!IndexDownloadWorker.IsBusy && !AssetDowloadWorker.IsBusy && !FileManager.ReadIndexFile(indexPath) )
                 {
                     //弹出对话框导致原窗口失焦，文件损坏时易产生无限循环弹窗的bug，因此先弃用该对话框。
                     //MessageBox.Show("索引文件读取发生异常。\n\n该错误由当前版本的索引文件引起，可能是文件下载过程中由于网络" +
