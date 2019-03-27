@@ -163,6 +163,9 @@ namespace Json2Wiki
             idolName.Add(52, "桜守歌織");
             idolType.Add(52, "Angel");
 
+            idolName.Add(201, "詩花");
+            idolType.Add(201, "Ex");
+
             idolRarity.Add(1, "N");
             idolRarity.Add(2, "R");
             idolRarity.Add(3, "SR");
