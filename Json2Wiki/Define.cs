@@ -172,6 +172,20 @@ namespace Json2Wiki
             idolRarity.Add(4, "SSR");
         }
 
+        public static int GetLifeByRarity(int rarity)
+        {
+            int life;
+            switch (rarity)
+            { 
+                case 1: life = 25; break;
+                case 2: life = 30; break;
+                case 3: life = 35; break;
+                case 4: life = 40; break;
+                default:life = 25; break;
+            }
+            return life;
+        }
+
         public static Dictionary<int, string> idolName   = new Dictionary<int, string>();
         public static Dictionary<int, string> idolType   = new Dictionary<int, string>();
         public static Dictionary<int, string> idolRarity = new Dictionary<int, string>();

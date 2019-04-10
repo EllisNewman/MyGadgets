@@ -18,7 +18,7 @@ namespace Json2Wiki
         static void Main(string[] args)
         {
             Define.init();
-            Console.WriteLine("输入id号查询对应卡片信息并转换为wiki语言格式。输入0则退出。");
+            Console.WriteLine("输入id号查询对应卡片信息并转换为wiki语言格式。输入0可清屏。");
 
             while (true)
             {
@@ -27,7 +27,8 @@ namespace Json2Wiki
 
                 if (input == "0")
                 {
-                    break;
+                    Console.Clear();
+                    continue;
                 }
 
                 string result = GetWebRequest("http" + "s://a" + "pi.mat" + "suri" + "hi.me/ml" + "td/v" + "1/c" + "ards/" + input);
@@ -72,24 +73,27 @@ namespace Json2Wiki
 
         static string GetString(CardInfo info)
         {
-            string origin =
+            string origin = 
+                "{{CardPic | CardID =  | SmallPicNum = 4 | BigPicNum = 0 | ClothPicNum = 0 }}\n" + 
                 "{{CardData" +
                 " | CardName = " + info.name +
                 " | CardNameCN = " +
                 " | Rarity = " + Define.idolRarity[info.rarity] +
                 " | Type = " + Define.idolType[info.idolId] +
                 " | CharaName = " + Define.idolName[info.idolId] +
-                " | Li1 = " + info.life + " | Vo1 = " + info.vocalMax + " | Da1 = " + info.danceMax + " | Vi1 = " + info.visualMax +
-                " | Li2 = " + info.life + " | Vo2 = " + info.vocalMaxAwakened + " | Da2 = " + info.danceMaxAwakened + " | Vi2 = " + info.visualMaxAwakened +
-                " | Li3 = " + info.life + " | Vo3 = " + (info.vocalMasterBonus * 4 + info.vocalMaxAwakened) + " | Da3 = " + (info.danceMasterBonus * 4 + info.danceMaxAwakened) + " | Vi3 = " + (info.visualMasterBonus * 4 + info.visualMaxAwakened) +
+                " | Li1 = " + Define.GetLifeByRarity(info.rarity) + " | Vo1 = " + info.vocalMax + " | Da1 = " + info.danceMax + " | Vi1 = " + info.visualMax +
+                " | Li2 = " + Define.GetLifeByRarity(info.rarity) + " | Vo2 = " + info.vocalMaxAwakened + " | Da2 = " + info.danceMaxAwakened + " | Vi2 = " + info.visualMaxAwakened +
+                " | Li3 = " + Define.GetLifeByRarity(info.rarity) + " | Vo3 = " + (info.vocalMasterBonus * 4 + info.vocalMaxAwakened) + " | Da3 = " + (info.danceMasterBonus * 4 + info.danceMaxAwakened) + " | Vi3 = " + (info.visualMasterBonus * 4 + info.visualMaxAwakened) +
                 " | LeaderSkillName = " + info.centerEffectName +
                 " | LeaderSkillNameCN = " +
                 " | LeaderSkill = " + (info.centerEffect == null ? "" : info.centerEffect.description) +
                 " | LeaderSkillCN = " +
                 " | CardSkillName = " + info.skillName +
                 " | CardSkillNameCN = " +
-                " | CardSkill = " + (info.skill == null ? "" : info.skill[0].description) +
+                " | CardSkill = " + (info.skill == null ? "" : string.Format(info.skill[0].description, info.skill[0].probability < 31 ? 40 : 45)) +
                 " | CardSkillCN = " +
+                " | Category = " + 
+                " | FirstShown = " +
                 " | }}";
 
             return origin;
