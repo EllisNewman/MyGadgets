@@ -9,14 +9,20 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Text;
+using System.Windows.Forms;
 using System.Web.Script.Serialization;
 
 namespace Json2Wiki
 {
     class Program
     {
+        [STAThread]
         static void Main(string[] args)
         {
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new Form1());
+
             Define.init();
             Console.WriteLine("输入id号查询对应卡片信息并转换为wiki语言格式。输入0可清屏。");
 
