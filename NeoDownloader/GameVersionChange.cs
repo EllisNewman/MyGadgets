@@ -20,11 +20,30 @@ namespace NeoDownloader
         private delegate void SetTextCallBack(string text);
         private Thread checkLatestThread;
         private Thread checkInputThread;
+        private SERVER_TYPE chosenServer;
+
         public GameVersionChange()
         {
             InitializeComponent();
             StartPosition = FormStartPosition.CenterScreen;
             MaximizeBox = false;
+            chosenServer = Define.CurrentServer;
+
+            switch (Define.CurrentServer)
+            {
+                case SERVER_TYPE.JP:
+                {
+                    radioBtnJP.Checked = true;
+                    radioBtnCNT.Checked = false;
+                    return;
+                }
+                case SERVER_TYPE.CNT:
+                {
+                    radioBtnJP.Checked = false;
+                    radioBtnCNT.Checked = true;
+                    return;
+                }
+            }
         }
 
         private void btnLatest_Click(object sender, EventArgs e)
@@ -39,23 +58,52 @@ namespace NeoDownloader
         private void CheckLatest()
         {
             SetResultText("正在查询...");
-            string result = GetWebRequest("https://api.matsurihi.me/mltd/v1/version/latest");
+            string result = "";
 
-            if (isResultError(result))
+            if (chosenServer == SERVER_TYPE.JP) // 查询日服
             {
-                SetResultText("查询错误！");
-                return;
+                result = GetWebRequest("https://api.matsurihi.me/mltd/v1/version/latest");
+
+                if (isResultError(result))
+                {
+                    SetResultText("查询错误！");
+                    return;
+                }
+
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                LatestVersionInfo info = js.Deserialize<LatestVersionInfo>(result);
+
+                cacheVersionInfo = info.res;
+                SetResultText("更新成功！" +
+                                   "\n现在的最新版本是：" + info.res.version +
+                                   "\n更新时间是：" + info.res.updateTime);
+
+                checkLatestThread = null;
             }
+            else if(chosenServer == SERVER_TYPE.CNT) // 查询繁中服
+            {
+                result = GetWebRequest("https://redive.estertion.win/db/mltd/current.json");
+                
+                if (isResultError(result))
+                {
+                    SetResultText("查询错误！");
+                    return;
+                }
+                
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                Res_CNT info = js.Deserialize<Res_CNT>(result);
 
-            JavaScriptSerializer js = new JavaScriptSerializer();
-            LatestVersionInfo info = js.Deserialize<LatestVersionInfo>(result);
+                cacheVersionInfo = new Res();
+                cacheVersionInfo.indexName = info.asset_index_name;
+                cacheVersionInfo.updateTime = info.update_time;
+                cacheVersionInfo.version = info.asset_version;
 
-            cacheVersionInfo = info.res;
-            SetResultText("更新成功！" +
-                               "\n现在的最新版本是：" + info.res.version +
-                               "\n更新时间是：" + info.res.updateTime);
+                SetResultText("更新成功！" +
+                                   "\n现在的最新版本是：" + info.asset_version +
+                                   "\n更新时间是：" + info.update_time);
 
-            checkLatestThread = null;
+                checkLatestThread = null;
+            }
         }
 
 
@@ -76,23 +124,51 @@ namespace NeoDownloader
         private void CheckInput(string input)
         {
             SetResultText("正在查询...");
-            string result = GetWebRequest("https://api.matsurihi.me/mltd/v1/version/assets/" + input);
 
-            if (isResultError(result))
+            if (chosenServer == SERVER_TYPE.JP) // 查询日服
             {
-                SetResultText("查询错误！\n不存在该版本号");
-                return;
+                string result = GetWebRequest("https://api.matsurihi.me/mltd/v1/version/assets/" + input);
+
+                if (isResultError(result))
+                {
+                    SetResultText("查询错误！\n不存在该版本号");
+                    return;
+                }
+
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                Res info = js.Deserialize<Res>(result);
+
+                cacheVersionInfo = info;
+                SetResultText("查询成功！" +
+                                   "\n查询版本是：" + info.version +
+                                   "\n更新时间是：" + info.updateTime);
+
+                checkInputThread = null;
+            }
+            else if (chosenServer == SERVER_TYPE.CNT) // 查询繁中服
+            {
+                string result = GetWebRequest("https://redive.estertion.win/db/mltd/" + input + ".json");
+
+                if (isResultError(result))
+                {
+                    SetResultText("查询错误！\n不存在该版本号");
+                    return;
+                }
+
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                Res_CNT info = js.Deserialize<Res_CNT>(result);
+
+                cacheVersionInfo = new Res();
+                cacheVersionInfo.indexName = info.asset_index_name;
+                cacheVersionInfo.updateTime = info.update_time;
+                cacheVersionInfo.version = info.asset_version;
+                SetResultText("查询成功！" +
+                                   "\n查询版本是：" + info.asset_version +
+                                   "\n更新时间是：" + info.update_time);
+
+                checkInputThread = null;
             }
 
-            JavaScriptSerializer js = new JavaScriptSerializer();
-            Res info = js.Deserialize<Res>(result);
-
-            cacheVersionInfo = info;
-            SetResultText("查询成功！" +
-                               "\n查询版本是：" + info.version +
-                               "\n更新时间是：" + info.updateTime);
-
-            checkInputThread = null;
         }
 
         private void btnFinish_Click(object sender, EventArgs e)
@@ -103,13 +179,14 @@ namespace NeoDownloader
             Define.GameVersion = cacheVersionInfo.version;
             Define.IndexName = cacheVersionInfo.indexName;
             Define.VersionUpdateTime = cacheVersionInfo.updateTime;
+            Define.ChangeServerTo(chosenServer);
 
             if (!Define.VersionDic.ContainsKey(cacheVersionInfo.version))
             {
                 Define.VersionDic.Add(cacheVersionInfo.version, cacheVersionInfo.indexName);
             }
 
-            FileManager.SaveVersionFile();
+            FileManager.SaveVersionFile(Define.CurrentServer);
 
             Define.IndexDic.Clear();
             Close();
@@ -148,7 +225,7 @@ namespace NeoDownloader
         private string GetWebRequest(string url)
         {
             string strResult = "";
-
+            System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12;
             try
             {
                 Uri uri = new Uri(url);
@@ -197,6 +274,13 @@ namespace NeoDownloader
             public Res res { get; set; }
         }
 
+        public class Res_CNT
+        {
+            public int asset_version { get; set; }
+            public string update_time { get; set; }
+            public string asset_index_name { get; set; }
+        }
+
         public class VersionInfo
         {
             public int version { get; set; }
@@ -204,8 +288,23 @@ namespace NeoDownloader
             public string indexName { get; set; }
         }
 
+
         #endregion
 
+        private void radioBtnJP_CheckedChanged(object sender, EventArgs e)
+        {
+            if(radioBtnJP.Checked)
+            {
+                chosenServer = SERVER_TYPE.JP;
+            }
+        }
 
+        private void radioBtnCNT_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioBtnCNT.Checked)
+            {
+                chosenServer = SERVER_TYPE.CNT;
+            }
+        }
     }
 }

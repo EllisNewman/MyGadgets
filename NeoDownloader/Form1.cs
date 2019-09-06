@@ -241,11 +241,11 @@ namespace NeoDownloader
                             listBoxResult.Items.Add("Change :" + info.Value.name);
                         }
                     }
-                    else
+                    else // 原版本中未包含该key，则是新增资源
                     {
                         listBoxResult.Items.Add("Add :" + info.Value.name);
                     }
-                    //此处未考虑旧版本存在Key而新版本不存在的逻辑。从实际情况看，土豆目前少有清理旧版本资源的先例，因此尚无该需求。
+                    //此处未考虑旧版本存在Key而新版本不存在的逻辑。从实际情况看，土豆目前没有清理旧版本资源的先例，因此尚无该需求。
                 }
             }
         }
@@ -262,7 +262,7 @@ namespace NeoDownloader
                 labelVersionTime.Text = "版本更新时间：" + Define.VersionUpdateTime;
             }
 
-            // 这里逻辑有些乱，有待改进
+            // to do : 这里逻辑有些乱，有待改进
             if (Define.IndexDic.Count == 0)
             {
                 ResetPanel();
@@ -280,6 +280,14 @@ namespace NeoDownloader
         {
             listBoxResult.Items.Clear();
             labelGameVersion.Text = Define.GameVersion.ToString();
+            if (Define.CurrentServer == SERVER_TYPE.JP)
+            {
+                labelLanguage.Text = "日服";
+            }
+            else if (Define.CurrentServer == SERVER_TYPE.CNT)
+            {
+                labelLanguage.Text = "繁中服";
+            }
 
             string indexPath = Define.LocalPath + Define.IndexPath + @"\" + Define.VersionDic[Define.GameVersion];
             if (File.Exists(indexPath))
@@ -312,12 +320,25 @@ namespace NeoDownloader
 
         private bool isCheckReady(int lastVersion, int curVersion)
         {
+            if (curVersion == 1)
+            {
+                MessageBox.Show("已是最早版本，不需要对比。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            if (lastVersion == 0)
+            {
+                MessageBox.Show("已是本地检测到的最早版本。\n\n" +
+                                "需通过版本查询功能找到前个版本，并下载索引文件，然后进行版本对比。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
             string lastVersionPath = Define.LocalPath + Define.IndexPath + @"\" + Define.VersionDic[lastVersion];
             string curVersionPath = Define.LocalPath + Define.IndexPath + @"\" + Define.VersionDic[curVersion];
 
             if (!File.Exists(lastVersionPath))
             {
-                MessageBox.Show("未在本地检测到前个版本: " + lastVersion + " 的版本号。\n\n" +
+                MessageBox.Show("未在本地检测到前个版本: " + lastVersion + " 的索引。\n\n" +
                                 "需先切换至前个版本，并下载索引文件，然后进行版本对比。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 return false;
@@ -325,7 +346,7 @@ namespace NeoDownloader
 
             if (!File.Exists(curVersionPath))
             {
-                MessageBox.Show("未在本地检测到当前版本: " + curVersion + " 的版本号。\n\n" +
+                MessageBox.Show("未在本地检测到当前版本: " + curVersion + " 的索引。\n\n" +
                                 "需先下载当前版本的索引文件，然后进行版本对比。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 return false;
@@ -514,7 +535,5 @@ namespace NeoDownloader
             labelMultiProgress.Text = "";
             progressDownload.Value = 0;
         }
-
-
     }
 }
