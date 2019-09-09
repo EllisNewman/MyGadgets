@@ -252,14 +252,19 @@ namespace ImageComposer
         //白板图拼接功能内的参数选择
         private void WhiteBoardChanged(object sender, EventArgs e)
         {
-            if (radioOldWB.Checked)
+            if (radioWBSmall.Checked)
             {
-                FileManager.whiteBoardType = WHITEBOARD_TYPE.Old;
+                FileManager.whiteBoardType = WHITEBOARD_TYPE.Small;
             }
 
-            if (radioNewWB.Checked)
+            if (radioWBMid.Checked)
             {
-                FileManager.whiteBoardType = WHITEBOARD_TYPE.New;
+                FileManager.whiteBoardType = WHITEBOARD_TYPE.Middle;
+            }
+
+            if (radioWBLarge.Checked)
+            {
+                FileManager.whiteBoardType = WHITEBOARD_TYPE.Large;
             }
 
         }

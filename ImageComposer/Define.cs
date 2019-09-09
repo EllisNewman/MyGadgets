@@ -202,13 +202,17 @@ namespace ImageComposer
     public enum WHITEBOARD_TYPE
     {
         /// <summary>
-        /// 新版
+        /// 原图分辨率512x256的小图
         /// </summary>
-        New,
+        Small,
         /// <summary>
-        /// 旧版
+        /// 原图分辨率512x512的中等大小图片
         /// </summary>
-        Old
+        Middle,
+        /// <summary>
+        /// 原图分辨率1024x512的大图
+        /// </summary>
+        Large
     }
 
     /// <summary>
