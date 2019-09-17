@@ -158,6 +158,13 @@ namespace NeoDownloader
                 JavaScriptSerializer js = new JavaScriptSerializer();
                 Res_CNT info = js.Deserialize<Res_CNT>(result);
 
+                if (info.asset_version == 0)
+                {
+                    SetResultText("查询错误！\n不存在该版本号");
+                    checkInputThread = null;
+                    return;
+                }
+                
                 cacheVersionInfo = new Res();
                 cacheVersionInfo.indexName = info.asset_index_name;
                 cacheVersionInfo.updateTime = info.update_time;
@@ -209,11 +216,11 @@ namespace NeoDownloader
         private bool isResultError(string result)
         {
             if (string.IsNullOrEmpty(result))
+            {
                 return true;
+            }
 
-            result = result.Split(':')[0];
-            int index = result.IndexOf("error");
-
+            int index = result.Split(':')[0].IndexOf("error");
             if (index < 0) // 小于0表示无error，大于等于0表示含error
             {
                 return false;

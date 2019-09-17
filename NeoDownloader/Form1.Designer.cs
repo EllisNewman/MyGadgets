@@ -440,7 +440,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
-            this.Text = "NeoDownloader a0.5";
+            this.Text = "NeoDownloader a0.5.1";
             this.groupMain.ResumeLayout(false);
             this.groupMain.PerformLayout();
             this.groupBox1.ResumeLayout(false);

@@ -709,7 +709,7 @@ namespace SimpleMsgPack
                 rawByte = new byte[2];
                 ms.Read(rawByte, 0, 2);
                 rawByte = BytesTools.SwapBytes(rawByte);
-                len = BitConverter.ToInt16(rawByte, 0);
+                len = BitConverter.ToUInt16(rawByte, 0);
 
                 this.Clear();
                 this.valueType = MsgPackType.Map;
