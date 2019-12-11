@@ -137,10 +137,20 @@ namespace NeoDownloader
                 string name = item.ToString();
                 if (name.IndexOf(":") >= 0) // 这里假定要下载的资源名里一定不会出现英文冒号这个符号。但愿土豆程序员不会搞我。
                 {
+                    if (name.Split(':')[0].Equals("Delete "))
+                    {
+                        continue;  // 当前版本已被移除的资源仅供显示用，不加入下载列表，不进行下载
+                    }
                     name = name.Split(':')[1];
                 }
                 selectedNames.Add(name);
             }
+            if (selectedNames.Count == 0)
+            {
+                labelDownLoadInfo.Text = "未选择下载项或选择了已被移除的资源。";
+                return;
+            }
+
             if (selectedNames.Count == 1)
             {
                 float size = int.Parse(Define.IndexDic[selectedNames[0]].size);
@@ -221,7 +231,7 @@ namespace NeoDownloader
                                               "\n\n是否确定？" +
                                               "\n\n用于版本更新时，检查并显示新版本修改的内容。\n\n两个版本之间的" +
                                               "差距不宜过大。建议两个版本号之间数字差距不超过500。",
-                                              "版本对比", MessageBoxButtons.OKCancel);
+                                              "内容改动对比", MessageBoxButtons.OKCancel);
 
             if (dr == DialogResult.OK)
             {
@@ -246,6 +256,76 @@ namespace NeoDownloader
                         listBoxResult.Items.Add("Add :" + info.Value.name);
                     }
                     //此处未考虑旧版本存在Key而新版本不存在的逻辑。从实际情况看，土豆目前没有清理旧版本资源的先例，因此尚无该需求。
+                }
+            }
+        }
+
+        private void btnCheckName_Click(object sender, EventArgs e)
+        {
+            FileManager.ReadVersionFile();
+
+            if (Define.VersionDic.Count < 2)
+            {
+                MessageBox.Show("在本地仅检测到一个版本号，无法进行对比。\n\n可先通过“版本号切换”功能查找版本号，然后" +
+                                "下载相应索引文件，即可进行版本对比。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
+            int lastVersion = 0;
+            int curVersion = Define.GameVersion;
+            int[] versions = new int[Define.VersionDic.Count];
+            Define.VersionDic.Keys.CopyTo(versions, 0);
+
+            for (int i = 0; i < versions.Length; i++)
+            {
+                if (curVersion > versions[i])
+                {
+                    lastVersion = versions[i];
+                }
+            }
+
+            if (!isCheckReady(lastVersion, curVersion))
+            {
+                return;
+            }
+
+            DialogResult dr = MessageBox.Show("将进行文件名称对比" +
+                                              "\n\n\t当前版本：" + curVersion +
+                                              "\n\n\t前个版本：" + lastVersion +
+                                              "\n\n是否确定？" +
+                                              "\n\n用于版本更新时，检查并显示新版本修改的文件。" +
+                                              "\n\n与“改动对比”的区别在于不会检测文件大小，只检查文件名称" +
+                                              "\n\n两个版本之间的" +
+                                              "差距不宜过大。建议两个版本号之间数字差距不超过500。",
+                                              "文件名称对比", MessageBoxButtons.OKCancel);
+
+            if (dr == DialogResult.OK)
+            {
+                listBoxResult.Items.Clear();
+                FileManager.ReadIndexCacheFile(Define.LocalPath + Define.IndexPath + @"\" + Define.VersionDic[lastVersion]);
+
+                foreach (var info in Define.IndexDic)
+                {
+                    if (Define.IndexDicCache.ContainsKey(info.Key))
+                    {
+                        continue; //未发生改变
+                    }
+                    else // 原版本中未包含该key，则是新增资源
+                    {
+                        listBoxResult.Items.Add("Add :" + info.Value.name);
+                    }
+                }
+
+                foreach (var info in Define.IndexDicCache)
+                {
+                    if (Define.IndexDic.ContainsKey(info.Key))
+                    {
+                        continue; //未发生改变
+                    }
+                    else // 原版本中的key丢失，则是资源被删除
+                    {
+                        listBoxResult.Items.Add("Delete :" + info.Value.name);
+                    }
                 }
             }
         }

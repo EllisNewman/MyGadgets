@@ -46,7 +46,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.btnCheck = new System.Windows.Forms.Button();
+            this.btnCheckChange = new System.Windows.Forms.Button();
             this.listBoxResult = new System.Windows.Forms.ListBox();
             this.btnSearch = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -62,6 +62,7 @@
             this.btnCancelDownload = new System.Windows.Forms.Button();
             this.s_labelLanguage = new System.Windows.Forms.Label();
             this.labelLanguage = new System.Windows.Forms.Label();
+            this.btnCheckName = new System.Windows.Forms.Button();
             this.groupMain.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -141,8 +142,9 @@
             // 
             // groupMain
             // 
+            this.groupMain.Controls.Add(this.btnCheckName);
             this.groupMain.Controls.Add(this.groupBox1);
-            this.groupMain.Controls.Add(this.btnCheck);
+            this.groupMain.Controls.Add(this.btnCheckChange);
             this.groupMain.Controls.Add(this.listBoxResult);
             this.groupMain.Controls.Add(this.btnSearch);
             this.groupMain.Controls.Add(this.label1);
@@ -254,16 +256,16 @@
             this.label2.TabIndex = 0;
             this.label2.Text = "卡面：";
             // 
-            // btnCheck
+            // btnCheckChange
             // 
-            this.btnCheck.Location = new System.Drawing.Point(637, 25);
-            this.btnCheck.Margin = new System.Windows.Forms.Padding(4);
-            this.btnCheck.Name = "btnCheck";
-            this.btnCheck.Size = new System.Drawing.Size(148, 29);
-            this.btnCheck.TabIndex = 5;
-            this.btnCheck.Text = "与前个版本对比";
-            this.btnCheck.UseVisualStyleBackColor = true;
-            this.btnCheck.Click += new System.EventHandler(this.btnCheck_Click);
+            this.btnCheckChange.Location = new System.Drawing.Point(602, 24);
+            this.btnCheckChange.Margin = new System.Windows.Forms.Padding(4);
+            this.btnCheckChange.Name = "btnCheckChange";
+            this.btnCheckChange.Size = new System.Drawing.Size(90, 29);
+            this.btnCheckChange.TabIndex = 5;
+            this.btnCheckChange.Text = "改动对比";
+            this.btnCheckChange.UseVisualStyleBackColor = true;
+            this.btnCheckChange.Click += new System.EventHandler(this.btnCheck_Click);
             // 
             // listBoxResult
             // 
@@ -274,12 +276,12 @@
             this.listBoxResult.Margin = new System.Windows.Forms.Padding(4);
             this.listBoxResult.Name = "listBoxResult";
             this.listBoxResult.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.listBoxResult.Size = new System.Drawing.Size(740, 441);
+            this.listBoxResult.Size = new System.Drawing.Size(767, 464);
             this.listBoxResult.TabIndex = 3;
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(497, 25);
+            this.btnSearch.Location = new System.Drawing.Point(489, 25);
             this.btnSearch.Margin = new System.Windows.Forms.Padding(4);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(100, 29);
@@ -413,6 +415,17 @@
             this.labelLanguage.TabIndex = 17;
             this.labelLanguage.Text = "日服";
             // 
+            // btnCheckName
+            // 
+            this.btnCheckName.Location = new System.Drawing.Point(705, 24);
+            this.btnCheckName.Margin = new System.Windows.Forms.Padding(4);
+            this.btnCheckName.Name = "btnCheckName";
+            this.btnCheckName.Size = new System.Drawing.Size(106, 29);
+            this.btnCheckName.TabIndex = 7;
+            this.btnCheckName.Text = "文件名对比";
+            this.btnCheckName.UseVisualStyleBackColor = true;
+            this.btnCheckName.Click += new System.EventHandler(this.btnCheckName_Click);
+            // 
             // Form1
             // 
             this.AcceptButton = this.btnSearch;
@@ -440,7 +453,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
-            this.Text = "NeoDownloader a0.5.1";
+            this.Text = "NeoDownloader a0.5.2";
             this.groupMain.ResumeLayout(false);
             this.groupMain.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -467,7 +480,7 @@
         private System.Windows.Forms.Button btnAssetDownLoad;
         private System.Windows.Forms.Label labelDownLoadInfo;
         private System.Windows.Forms.Button btnOpenDownloadPath;
-        private System.Windows.Forms.Button btnCheck;
+        private System.Windows.Forms.Button btnCheckChange;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
@@ -485,6 +498,7 @@
         private System.Windows.Forms.Button btnCancelDownload;
         private System.Windows.Forms.Label s_labelLanguage;
         private System.Windows.Forms.Label labelLanguage;
+        private System.Windows.Forms.Button btnCheckName;
     }
 }
 

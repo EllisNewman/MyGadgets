@@ -27,9 +27,22 @@ namespace NeoDownloader
         // todo : 将来如果某个区服的土豆更新了Unity版本，则需要修改下列函数中对应的数值以进行适配
         public static string GetUnityVersion()
         {
-            if (CurrentServer == SERVER_TYPE.JP)
+            if (CurrentServer == SERVER_TYPE.JP) // JP
             {
-                return (GameVersion > 14580 ? "2017.3" : "5.6");
+                if (GameVersion > 14580)
+                    if (GameVersion > 115990)
+                    {
+                        return "2018";
+                    }
+                    else  //  14580和115990之间
+                    {
+                        return "2017.3";
+                    }
+                else      //  14580及以前
+                {
+                    return "5.6";
+                }
+                
             }
             else return "2017v1"; // CNT。有其他区服时再追加判断（偷懒
         }
