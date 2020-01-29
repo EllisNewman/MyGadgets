@@ -263,8 +263,12 @@ namespace NeoDownloader
         {
             public string version { get; set; }
             public string updateTime { get; set; }
-            public int revision { get; set; }
-            public string versionHash { get; set; }
+
+            // api 中此值可能为 null
+            public int? revision { get; set; }
+
+            // api 中删除了此项
+            //public string versionHash { get; set; }
         }
 
         public class Res
