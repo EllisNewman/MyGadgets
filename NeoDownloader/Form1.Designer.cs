@@ -37,6 +37,7 @@
             this.btnGameVersionChange = new System.Windows.Forms.Button();
             this.btnHelp = new System.Windows.Forms.Button();
             this.groupMain = new System.Windows.Forms.GroupBox();
+            this.btnCheckName = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -62,7 +63,6 @@
             this.btnCancelDownload = new System.Windows.Forms.Button();
             this.s_labelLanguage = new System.Windows.Forms.Label();
             this.labelLanguage = new System.Windows.Forms.Label();
-            this.btnCheckName = new System.Windows.Forms.Button();
             this.groupMain.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -70,49 +70,44 @@
             // s_labelGameVersion
             // 
             this.s_labelGameVersion.AutoSize = true;
-            this.s_labelGameVersion.Location = new System.Drawing.Point(325, 19);
-            this.s_labelGameVersion.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.s_labelGameVersion.Location = new System.Drawing.Point(244, 15);
             this.s_labelGameVersion.Name = "s_labelGameVersion";
-            this.s_labelGameVersion.Size = new System.Drawing.Size(67, 15);
+            this.s_labelGameVersion.Size = new System.Drawing.Size(53, 12);
             this.s_labelGameVersion.TabIndex = 0;
             this.s_labelGameVersion.Text = "版本号：";
             // 
             // labelGameVersion
             // 
             this.labelGameVersion.AutoSize = true;
-            this.labelGameVersion.Location = new System.Drawing.Point(391, 19);
-            this.labelGameVersion.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelGameVersion.Location = new System.Drawing.Point(293, 15);
             this.labelGameVersion.Name = "labelGameVersion";
-            this.labelGameVersion.Size = new System.Drawing.Size(55, 15);
+            this.labelGameVersion.Size = new System.Drawing.Size(41, 12);
             this.labelGameVersion.TabIndex = 1;
             this.labelGameVersion.Text = "000000";
             // 
             // s_labelIndex
             // 
             this.s_labelIndex.AutoSize = true;
-            this.s_labelIndex.Location = new System.Drawing.Point(463, 19);
-            this.s_labelIndex.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.s_labelIndex.Location = new System.Drawing.Point(347, 15);
             this.s_labelIndex.Name = "s_labelIndex";
-            this.s_labelIndex.Size = new System.Drawing.Size(82, 15);
+            this.s_labelIndex.Size = new System.Drawing.Size(65, 12);
             this.s_labelIndex.TabIndex = 2;
             this.s_labelIndex.Text = "索引文件：";
             // 
             // labelIndex
             // 
             this.labelIndex.AutoSize = true;
-            this.labelIndex.Location = new System.Drawing.Point(553, 19);
-            this.labelIndex.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelIndex.Location = new System.Drawing.Point(415, 15);
             this.labelIndex.Name = "labelIndex";
-            this.labelIndex.Size = new System.Drawing.Size(52, 15);
+            this.labelIndex.Size = new System.Drawing.Size(41, 12);
             this.labelIndex.TabIndex = 3;
             this.labelIndex.Text = "不存在";
             // 
             // btnIndexDownload
             // 
-            this.btnIndexDownload.Location = new System.Drawing.Point(623, 9);
-            this.btnIndexDownload.Margin = new System.Windows.Forms.Padding(4);
+            this.btnIndexDownload.Location = new System.Drawing.Point(467, 7);
             this.btnIndexDownload.Name = "btnIndexDownload";
-            this.btnIndexDownload.Size = new System.Drawing.Size(129, 35);
+            this.btnIndexDownload.Size = new System.Drawing.Size(97, 28);
             this.btnIndexDownload.TabIndex = 2;
             this.btnIndexDownload.Text = "下载索引文件";
             this.btnIndexDownload.UseVisualStyleBackColor = true;
@@ -120,10 +115,9 @@
             // 
             // btnGameVersionChange
             // 
-            this.btnGameVersionChange.Location = new System.Drawing.Point(13, 9);
-            this.btnGameVersionChange.Margin = new System.Windows.Forms.Padding(4);
+            this.btnGameVersionChange.Location = new System.Drawing.Point(10, 7);
             this.btnGameVersionChange.Name = "btnGameVersionChange";
-            this.btnGameVersionChange.Size = new System.Drawing.Size(147, 35);
+            this.btnGameVersionChange.Size = new System.Drawing.Size(110, 28);
             this.btnGameVersionChange.TabIndex = 1;
             this.btnGameVersionChange.Text = "区服＆版本号";
             this.btnGameVersionChange.UseVisualStyleBackColor = true;
@@ -131,10 +125,9 @@
             // 
             // btnHelp
             // 
-            this.btnHelp.Location = new System.Drawing.Point(1129, 15);
-            this.btnHelp.Margin = new System.Windows.Forms.Padding(4);
+            this.btnHelp.Location = new System.Drawing.Point(847, 12);
             this.btnHelp.Name = "btnHelp";
-            this.btnHelp.Size = new System.Drawing.Size(100, 29);
+            this.btnHelp.Size = new System.Drawing.Size(75, 23);
             this.btnHelp.TabIndex = 0;
             this.btnHelp.Text = "使用说明";
             this.btnHelp.UseVisualStyleBackColor = true;
@@ -149,13 +142,21 @@
             this.groupMain.Controls.Add(this.btnSearch);
             this.groupMain.Controls.Add(this.label1);
             this.groupMain.Controls.Add(this.txtBoxSearch);
-            this.groupMain.Location = new System.Drawing.Point(20, 46);
-            this.groupMain.Margin = new System.Windows.Forms.Padding(4);
+            this.groupMain.Location = new System.Drawing.Point(15, 37);
             this.groupMain.Name = "groupMain";
-            this.groupMain.Padding = new System.Windows.Forms.Padding(4);
-            this.groupMain.Size = new System.Drawing.Size(1209, 581);
+            this.groupMain.Size = new System.Drawing.Size(907, 465);
             this.groupMain.TabIndex = 8;
             this.groupMain.TabStop = false;
+            // 
+            // btnCheckName
+            // 
+            this.btnCheckName.Location = new System.Drawing.Point(529, 19);
+            this.btnCheckName.Name = "btnCheckName";
+            this.btnCheckName.Size = new System.Drawing.Size(80, 23);
+            this.btnCheckName.TabIndex = 7;
+            this.btnCheckName.Text = "文件名对比";
+            this.btnCheckName.UseVisualStyleBackColor = true;
+            this.btnCheckName.Click += new System.EventHandler(this.btnCheckName_Click);
             // 
             // groupBox1
             // 
@@ -167,11 +168,9 @@
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Location = new System.Drawing.Point(831, 31);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
+            this.groupBox1.Location = new System.Drawing.Point(623, 25);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox1.Size = new System.Drawing.Size(359, 521);
+            this.groupBox1.Size = new System.Drawing.Size(269, 417);
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "可能用到的关键字和对照表：";
@@ -179,89 +178,80 @@
             // label4
             // 
             this.label4.Font = new System.Drawing.Font("宋体", 10F);
-            this.label4.Location = new System.Drawing.Point(23, 271);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Location = new System.Drawing.Point(17, 217);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(317, 246);
+            this.label4.Size = new System.Drawing.Size(238, 197);
             this.label4.TabIndex = 8;
             this.label4.Text = resources.GetString("label4.Text");
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(40, 124);
-            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label9.Location = new System.Drawing.Point(30, 99);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(239, 15);
+            this.label9.Size = new System.Drawing.Size(185, 12);
             this.label9.TabIndex = 7;
             this.label9.Text = "icon_[偶像id+偶像简称][卡面id]";
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(24, 96);
-            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label8.Location = new System.Drawing.Point(18, 77);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(82, 15);
+            this.label8.Size = new System.Drawing.Size(65, 12);
             this.label8.TabIndex = 6;
             this.label8.Text = "卡面头像：";
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(40, 210);
-            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label7.Location = new System.Drawing.Point(30, 168);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(215, 15);
+            this.label7.Size = new System.Drawing.Size(167, 12);
             this.label7.TabIndex = 5;
             this.label7.Text = "ch_[类别]_[偶像id+偶像简称]";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(40, 184);
-            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label6.Location = new System.Drawing.Point(30, 147);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(215, 15);
+            this.label6.Size = new System.Drawing.Size(167, 12);
             this.label6.TabIndex = 4;
             this.label6.Text = "cb_[类别]_[偶像id+偶像简称]";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(24, 150);
-            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label5.Location = new System.Drawing.Point(18, 120);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(52, 15);
+            this.label5.Size = new System.Drawing.Size(41, 12);
             this.label5.TabIndex = 3;
             this.label5.Text = "模型：";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(40, 68);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Location = new System.Drawing.Point(30, 54);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(199, 15);
+            this.label3.Size = new System.Drawing.Size(155, 12);
             this.label3.TabIndex = 1;
             this.label3.Text = "[偶像id+偶像简称][卡面id]";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(24, 41);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(18, 33);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(52, 15);
+            this.label2.Size = new System.Drawing.Size(41, 12);
             this.label2.TabIndex = 0;
             this.label2.Text = "卡面：";
             // 
             // btnCheckChange
             // 
-            this.btnCheckChange.Location = new System.Drawing.Point(602, 24);
-            this.btnCheckChange.Margin = new System.Windows.Forms.Padding(4);
+            this.btnCheckChange.Location = new System.Drawing.Point(452, 19);
             this.btnCheckChange.Name = "btnCheckChange";
-            this.btnCheckChange.Size = new System.Drawing.Size(90, 29);
+            this.btnCheckChange.Size = new System.Drawing.Size(68, 23);
             this.btnCheckChange.TabIndex = 5;
             this.btnCheckChange.Text = "改动对比";
             this.btnCheckChange.UseVisualStyleBackColor = true;
@@ -271,20 +261,18 @@
             // 
             this.listBoxResult.Font = new System.Drawing.Font("黑体", 14F);
             this.listBoxResult.FormattingEnabled = true;
-            this.listBoxResult.ItemHeight = 23;
-            this.listBoxResult.Location = new System.Drawing.Point(44, 72);
-            this.listBoxResult.Margin = new System.Windows.Forms.Padding(4);
+            this.listBoxResult.ItemHeight = 19;
+            this.listBoxResult.Location = new System.Drawing.Point(33, 58);
             this.listBoxResult.Name = "listBoxResult";
             this.listBoxResult.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.listBoxResult.Size = new System.Drawing.Size(767, 464);
+            this.listBoxResult.Size = new System.Drawing.Size(576, 365);
             this.listBoxResult.TabIndex = 3;
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(489, 25);
-            this.btnSearch.Margin = new System.Windows.Forms.Padding(4);
+            this.btnSearch.Location = new System.Drawing.Point(367, 20);
             this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(100, 29);
+            this.btnSearch.Size = new System.Drawing.Size(75, 23);
             this.btnSearch.TabIndex = 3;
             this.btnSearch.Text = "查询";
             this.btnSearch.UseVisualStyleBackColor = true;
@@ -293,27 +281,24 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(36, 31);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(27, 25);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(127, 15);
+            this.label1.Size = new System.Drawing.Size(101, 12);
             this.label1.TabIndex = 1;
             this.label1.Text = "输入查询关键字：";
             // 
             // txtBoxSearch
             // 
-            this.txtBoxSearch.Location = new System.Drawing.Point(179, 28);
-            this.txtBoxSearch.Margin = new System.Windows.Forms.Padding(4);
+            this.txtBoxSearch.Location = new System.Drawing.Point(134, 22);
             this.txtBoxSearch.Name = "txtBoxSearch";
-            this.txtBoxSearch.Size = new System.Drawing.Size(289, 25);
+            this.txtBoxSearch.Size = new System.Drawing.Size(218, 21);
             this.txtBoxSearch.TabIndex = 0;
             // 
             // btnAssetDownLoad
             // 
-            this.btnAssetDownLoad.Location = new System.Drawing.Point(1064, 690);
-            this.btnAssetDownLoad.Margin = new System.Windows.Forms.Padding(4);
+            this.btnAssetDownLoad.Location = new System.Drawing.Point(798, 552);
             this.btnAssetDownLoad.Name = "btnAssetDownLoad";
-            this.btnAssetDownLoad.Size = new System.Drawing.Size(165, 52);
+            this.btnAssetDownLoad.Size = new System.Drawing.Size(124, 42);
             this.btnAssetDownLoad.TabIndex = 10;
             this.btnAssetDownLoad.Text = "下载";
             this.btnAssetDownLoad.UseVisualStyleBackColor = true;
@@ -322,19 +307,17 @@
             // labelDownLoadInfo
             // 
             this.labelDownLoadInfo.Font = new System.Drawing.Font("宋体", 11F);
-            this.labelDownLoadInfo.Location = new System.Drawing.Point(60, 668);
-            this.labelDownLoadInfo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelDownLoadInfo.Location = new System.Drawing.Point(45, 534);
             this.labelDownLoadInfo.Name = "labelDownLoadInfo";
-            this.labelDownLoadInfo.Size = new System.Drawing.Size(963, 38);
+            this.labelDownLoadInfo.Size = new System.Drawing.Size(722, 30);
             this.labelDownLoadInfo.TabIndex = 9;
             this.labelDownLoadInfo.Text = "label2";
             // 
             // btnOpenDownloadPath
             // 
-            this.btnOpenDownloadPath.Location = new System.Drawing.Point(1064, 635);
-            this.btnOpenDownloadPath.Margin = new System.Windows.Forms.Padding(4);
+            this.btnOpenDownloadPath.Location = new System.Drawing.Point(798, 508);
             this.btnOpenDownloadPath.Name = "btnOpenDownloadPath";
-            this.btnOpenDownloadPath.Size = new System.Drawing.Size(165, 40);
+            this.btnOpenDownloadPath.Size = new System.Drawing.Size(124, 32);
             this.btnOpenDownloadPath.TabIndex = 4;
             this.btnOpenDownloadPath.Text = "打开下载目录";
             this.btnOpenDownloadPath.UseVisualStyleBackColor = true;
@@ -343,10 +326,9 @@
             // labelVersionTime
             // 
             this.labelVersionTime.AutoSize = true;
-            this.labelVersionTime.Location = new System.Drawing.Point(774, 19);
-            this.labelVersionTime.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelVersionTime.Location = new System.Drawing.Point(580, 15);
             this.labelVersionTime.Name = "labelVersionTime";
-            this.labelVersionTime.Size = new System.Drawing.Size(63, 15);
+            this.labelVersionTime.Size = new System.Drawing.Size(47, 12);
             this.labelVersionTime.TabIndex = 12;
             this.labelVersionTime.Text = "label10";
             // 
@@ -360,10 +342,9 @@
             // 
             // progressDownload
             // 
-            this.progressDownload.Location = new System.Drawing.Point(59, 750);
-            this.progressDownload.Margin = new System.Windows.Forms.Padding(4);
+            this.progressDownload.Location = new System.Drawing.Point(44, 600);
             this.progressDownload.Name = "progressDownload";
-            this.progressDownload.Size = new System.Drawing.Size(1171, 29);
+            this.progressDownload.Size = new System.Drawing.Size(878, 23);
             this.progressDownload.TabIndex = 13;
             // 
             // AssetDowloadWorker
@@ -377,19 +358,17 @@
             // labelMultiProgress
             // 
             this.labelMultiProgress.Font = new System.Drawing.Font("宋体", 11F);
-            this.labelMultiProgress.Location = new System.Drawing.Point(60, 705);
-            this.labelMultiProgress.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelMultiProgress.Location = new System.Drawing.Point(45, 564);
             this.labelMultiProgress.Name = "labelMultiProgress";
-            this.labelMultiProgress.Size = new System.Drawing.Size(979, 29);
+            this.labelMultiProgress.Size = new System.Drawing.Size(734, 23);
             this.labelMultiProgress.TabIndex = 14;
             this.labelMultiProgress.Text = "label10";
             // 
             // btnCancelDownload
             // 
-            this.btnCancelDownload.Location = new System.Drawing.Point(1064, 690);
-            this.btnCancelDownload.Margin = new System.Windows.Forms.Padding(4);
+            this.btnCancelDownload.Location = new System.Drawing.Point(798, 552);
             this.btnCancelDownload.Name = "btnCancelDownload";
-            this.btnCancelDownload.Size = new System.Drawing.Size(165, 52);
+            this.btnCancelDownload.Size = new System.Drawing.Size(124, 42);
             this.btnCancelDownload.TabIndex = 15;
             this.btnCancelDownload.Text = "取消";
             this.btnCancelDownload.UseVisualStyleBackColor = true;
@@ -398,40 +377,27 @@
             // s_labelLanguage
             // 
             this.s_labelLanguage.AutoSize = true;
-            this.s_labelLanguage.Location = new System.Drawing.Point(192, 19);
-            this.s_labelLanguage.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.s_labelLanguage.Location = new System.Drawing.Point(144, 15);
             this.s_labelLanguage.Name = "s_labelLanguage";
-            this.s_labelLanguage.Size = new System.Drawing.Size(67, 15);
+            this.s_labelLanguage.Size = new System.Drawing.Size(53, 12);
             this.s_labelLanguage.TabIndex = 16;
             this.s_labelLanguage.Text = "服务器：";
             // 
             // labelLanguage
             // 
             this.labelLanguage.AutoSize = true;
-            this.labelLanguage.Location = new System.Drawing.Point(267, 19);
-            this.labelLanguage.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelLanguage.Location = new System.Drawing.Point(200, 15);
             this.labelLanguage.Name = "labelLanguage";
-            this.labelLanguage.Size = new System.Drawing.Size(37, 15);
+            this.labelLanguage.Size = new System.Drawing.Size(29, 12);
             this.labelLanguage.TabIndex = 17;
             this.labelLanguage.Text = "日服";
-            // 
-            // btnCheckName
-            // 
-            this.btnCheckName.Location = new System.Drawing.Point(705, 24);
-            this.btnCheckName.Margin = new System.Windows.Forms.Padding(4);
-            this.btnCheckName.Name = "btnCheckName";
-            this.btnCheckName.Size = new System.Drawing.Size(106, 29);
-            this.btnCheckName.TabIndex = 7;
-            this.btnCheckName.Text = "文件名对比";
-            this.btnCheckName.UseVisualStyleBackColor = true;
-            this.btnCheckName.Click += new System.EventHandler(this.btnCheckName_Click);
             // 
             // Form1
             // 
             this.AcceptButton = this.btnSearch;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1257, 794);
+            this.ClientSize = new System.Drawing.Size(943, 635);
             this.Controls.Add(this.labelLanguage);
             this.Controls.Add(this.s_labelLanguage);
             this.Controls.Add(this.btnCancelDownload);
@@ -451,9 +417,8 @@
             this.Controls.Add(this.s_labelGameVersion);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
-            this.Text = "NeoDownloader a0.5.2";
+            this.Text = "NeoDownloader v1.0";
             this.groupMain.ResumeLayout(false);
             this.groupMain.PerformLayout();
             this.groupBox1.ResumeLayout(false);

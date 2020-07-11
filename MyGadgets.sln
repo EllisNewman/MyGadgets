@@ -1,15 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29920.165
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageComposer", "ImageComposer\ImageComposer.csproj", "{3F016746-DC5B-4C92-8CCD-C2F8EB320C4C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Json2Wiki", "Json2Wiki\Json2Wiki.csproj", "{9A60EDCF-46AA-440E-B643-4BF848927BC9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NeoDownloader", "NeoDownloader\NeoDownloader.csproj", "{DE072C22-9317-4961-95E6-492A28F788E4}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test01", "Test01\Test01.csproj", "{FB26E62E-A01D-4436-94AB-E3BE0FA1C900}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,12 +27,11 @@ Global
 		{DE072C22-9317-4961-95E6-492A28F788E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DE072C22-9317-4961-95E6-492A28F788E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DE072C22-9317-4961-95E6-492A28F788E4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FB26E62E-A01D-4436-94AB-E3BE0FA1C900}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FB26E62E-A01D-4436-94AB-E3BE0FA1C900}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FB26E62E-A01D-4436-94AB-E3BE0FA1C900}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FB26E62E-A01D-4436-94AB-E3BE0FA1C900}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {301D04B7-036B-4F00-8DCD-B290CC8F1A1B}
 	EndGlobalSection
 EndGlobal
