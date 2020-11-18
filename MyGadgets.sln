@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Json2Wiki", "Json2Wiki\Json
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NeoDownloader", "NeoDownloader\NeoDownloader.csproj", "{DE072C22-9317-4961-95E6-492A28F788E4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PicDownloader", "PicDownloader\PicDownloader.csproj", "{E6B91935-6892-4F91-ABDB-9C04CB2D471B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{DE072C22-9317-4961-95E6-492A28F788E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DE072C22-9317-4961-95E6-492A28F788E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DE072C22-9317-4961-95E6-492A28F788E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6B91935-6892-4F91-ABDB-9C04CB2D471B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6B91935-6892-4F91-ABDB-9C04CB2D471B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6B91935-6892-4F91-ABDB-9C04CB2D471B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6B91935-6892-4F91-ABDB-9C04CB2D471B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

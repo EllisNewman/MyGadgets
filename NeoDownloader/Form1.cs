@@ -443,7 +443,7 @@ namespace NeoDownloader
         private void IndexDownloadWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             ServicePointManager.ServerCertificateValidationCallback += (s, cert, chain, sslPolicyErrors) => true;
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
+            //ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(Define.GetIndexUrl());
             HttpWebResponse response = request.GetResponse() as HttpWebResponse;
             Stream responseStream = response.GetResponseStream();
